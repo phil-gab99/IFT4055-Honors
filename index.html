@@ -49,7 +49,51 @@
 
   <h2>B - Description détaillée</h2>
   <p>
-    
+    Le projet s'intitule
+    <i>Système de contrôle de versions (VCS) des modèles</i>. On s'intéresse aux
+    caractéristiques suivantes:
+    <ul>
+      <li>
+        Créer un dépot de versions de modèles à l'aide d'une base de donnée de
+        graphes Neo4J
+      </li>
+      <li>
+        Paramétrer l'unité versionnable
+      </li>
+      <li>
+        On doit pouvoir versionner des modèles, langages, transformations, code,
+        etc...
+      </li>
+      <li>
+        Définir une DSL de requêtes pour répondre aux questions du type:
+        <i>qui, quand, quoi, où</i>
+      </li>
+      <li>
+        Générer du <code>Cypher</code> à partir de cette DSL
+      </li>
+      <li>
+        Présenter les résultats des requêtes
+      </li>
+    </ul>
+    Ce projet se concentre davantage sur les trois derniers points. Les points
+    qui précèdent sont nécessaires d'être abordé à un certain degré pour pouvoir
+    se concentrer sur les trois derniers points. Des outils tel que <code>Neo4J
+    Browser</code> et <code>Neo4J Desktop</code> seront nécessaire pour la
+    création d'un dépot de versions de modèles et la présentation des résultats
+    à l'aide d'une requête. Le <i>Eclipse Modeling Framework</i> ainsi que
+    certains des plug-ins qui s'y trouve seront essentiels pour l'élaboration du
+    métamodèle des unités versionnables ainsi que de la conception de la DSL et
+    sa transformation en du code <code>Cypher</code>.
+  </p>
+
+  <h2>C - Plan de développement</h2>
+  <p>
+    Ce projet a commencé dès que je l'ai soumis après avoir discuté avec
+    M. Eugene Syriani. Ce projet devrait idéalement se terminer avant le 18
+    décembre. Je prévois tenté de contribuer à compléter ce projet à tous les
+    2-3 semaines et à un rythme dépendant également des concepts vu dans le
+    cours IFT-6253 qui présente plusieurs des outils qui sont nécessaires pour
+    compléter le projet
   </p>
 
   <h2>D - Rapports d'avancement</h2>
@@ -64,6 +108,25 @@
     articles scientifiques plus spécifique à mon projet que je voudrais prendre
     le temps de lire tel qu'au sujet de Xtend et Xbase, Neo4J et Cipher, AMOR,
     etc...
+  </p>
+  <h3>Période 10/07 - 10/23</h3>
+  <p>
+    Durant cette période, j'ai commencé à m'attaquer au problème. J'ai
+    installé <code>Neo4J Desktop</code> sur ma machine et j'ai expérimenté un
+    peu avec les requêtes <code>Cypher</code> en ayant recours au manuel de
+    documentation de Neo4J et autres ressources utiles. Par la suite, je me suis
+    créé un métamodèle sur EMF décrivant de façon abstraite la structure d'un
+    projet versionnable. La version que j'ai présentement n'est pas finale et
+    risque de changer mais elle m'a suffit pour commencer à décrire la grammaire
+    à l'aide de <code>xText</code> de ma DSL qui sera ensuite transformée en des
+    requêtes <code>Cypher</code>. Je passerais le temps qui vient à améliorer
+    mon métamodèle et arriver à une conception satisfaisante de la syntaxe de la
+    DSL.
+  </p>
+
+  <h2>E - Rapport final</h2>
+  <p>
+    À venir...
   </p>
 </body>
 
