@@ -1,0 +1,58 @@
+// -*- mode: java -*-
+@namespace(uri="geodes.sms.repository", prefix="repo")
+package Repository;
+
+class Repo {
+    val MainBranch[1] main;
+    val GenericBranch[*] branches;
+    val Model[*] models;
+}
+
+abstract class Branch {
+    attr String branchName;
+    val Commit[1..*] commits;
+    ref Commit[1] parent;
+    ref Commit[1] head;
+}
+
+class MainBranch extends Branch {
+
+}
+
+class GenericBranch extends Branch {
+    attr Boolean active;
+}
+
+abstract class Commit {
+    !ordered id attr String hash;
+    attr String author;
+    attr String message;
+    attr String timestamp;
+    ref Commit next;
+    val ModelModif[1..*] modifiedModels;
+}
+
+class GenericCommit extends Commit {
+
+}
+
+class MergeCommit extends Commit {
+    ref Commit[1] from;
+    ref Commit[1] to;
+}
+
+class ModelModif {
+    ref Model[1] model;
+    ref ModelSnapshot[1] modelSnapshot;
+}
+
+class Model {
+    !ordered id attr String name;
+    attr Boolean isDeleted;
+    val ModelSnapshot[1..*] lifetime;
+}
+
+class ModelSnapshot {
+    attr String path;
+    ref ModelSnapshot next;
+}
