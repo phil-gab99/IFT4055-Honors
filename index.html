@@ -101,13 +101,13 @@
   <p>
     Durant cette période, j'ai eu la chance de pouvoir me familiariser avec
     certains des concepts contournant le développement d'un langage spécifique
-    au domaine (DSL) à l'aide du Eclipse Modeling Framework ainsi que de Xtext
-    pour ce qui est de la syntaxe concrète d'un langage. Plusieurs des articles
-    scientifiques du cours de IFT-6253 m'ont permis de mieux comprendre la
-    théorie entourant ces concepts. J'ai également préparé une liste de certains
-    articles scientifiques plus spécifique à mon projet que je voudrais prendre
-    le temps de lire tel qu'au sujet de Xtend et Xbase, Neo4J et Cipher, AMOR,
-    etc...
+    au domaine (DSL) à l'aide du Eclipse Modeling Framework ainsi que
+    de <code>Xtext</code> pour ce qui est de la syntaxe concrète d'un
+    langage. Plusieurs des articles scientifiques du cours de IFT-6253 m'ont
+    permis de mieux comprendre la théorie entourant ces concepts. J'ai également
+    préparé une liste de certains articles scientifiques plus spécifique à mon
+    projet que je voudrais prendre le temps de lire tel qu'au sujet de Xtend et
+    Xbase, Neo4J et Cipher, AMOR, etc...
   </p>
   <h3>Période 10/07 - 10/23</h3>
   <p>
@@ -118,7 +118,7 @@
     créé un métamodèle sur EMF décrivant de façon abstraite la structure d'un
     projet versionnable. La version que j'ai présentement n'est pas finale et
     risque de changer mais elle m'a suffit pour commencer à décrire la grammaire
-    à l'aide de <code>xText</code> de ma DSL qui sera ensuite transformée en des
+    à l'aide de <code>Xtext</code> de ma DSL qui sera ensuite transformée en des
     requêtes <code>Cypher</code>. Je passerais le temps qui vient à améliorer
     mon métamodèle et arriver à une conception satisfaisante de la syntaxe de la
     DSL.
@@ -136,9 +136,35 @@
     Durant cette période, j'ai eu une rencontre avec M. Eugene Syriani ce qui
     m'a aidé dans la révision des métamodèles pour un projet versionnable et sur
     les requêtes sur un tel projet. J'ai également pu élaborer une grammaire
-    Xtext satisfaisante pour le langage de requêtes. Après que je découvre
-    comment établir la connection entre mes deux métamodèles, je pourrais
-    ensuite travailler sur la génération du code <code>Cypher</code>.
+    <code>Xtext</code> satisfaisante pour le langage de requêtes. Après que je
+    découvre comment établir la connection entre mes deux métamodèles, je
+    pourrais ensuite travailler sur la génération du code <code>Cypher</code>.
+  </p>
+  <h3>Période 11/14 - 11/20</h3>
+  <p>
+    Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani et
+    j'ai pu mieux comprendre certains des points que ma solution devait
+    implémenter. J'ai légèrement modifé le métamodèle d'un projet versionnable
+    ainsi que le métamodèle de mon langage de requêtes. J'ai également amené un
+    ajustement à la grammaire <code>Xtext</code> pour prendre en compte des
+    requêtes pouvant faire référence à des éléments à l'intérieur d'un modèle.
+    Initialement j'avais conçu un métamodèle qui représenterait un extrait du
+    langage <code>Cypher</code> de sorte à ensuite entreprendre une
+    transformation modèle-à-modèle de mon langage de requête vers le
+    langage <code>Cypher</code> (un peu comme la stratégie entreprise dans
+    l'article Mogwaï). Cependant, après réflexion, il m'a semblé plus approprié
+    d'entreprendre une transformation modèle-à-texte directement à partir de la
+    requête rédigée dans mon langage. C'est donc ce que j'ai rédigée durant
+    cette période. Cette transformation semble bien généré le
+    code <code>Cypher</code> que je pourrais ensuite roulée sur une base de
+    donnée Neo4J qui contiendra la structure d'un projet versionnable conformant
+    au métamodèle d'un projet versionnable tel que décrit. Pour l'instant, le
+    langage de requête est en mesure de permettre à l'usager de faire référence
+    à des éléments à l'intérieur d'un modèle sauf qu'il ne présente pas de
+    candidats pour l'autocomplétion, l'usager devra savoir a priori le contenu
+    de ces modèles. Pour le temps qui reste, je tenterais de créer un exemple de
+    base de données dans Neo4J sur lequel je pourrais rouler les requêtes
+    générées à partir de la transforamtion.
   </p>
 
   <h2>E - Rapport final</h2>
