@@ -79,3 +79,11 @@ WHO model {
 MATCH (m:Model)-[:current]->(ms:ModelSnapshot)
 WHERE ms.path = "~/Projects/diningroom.drm"
 RETURN m.owner
+
+WHEN change {
+    hash = ...   
+} [
+    Table.x
+]
+
+MATCH (c:Commit)-[:]
