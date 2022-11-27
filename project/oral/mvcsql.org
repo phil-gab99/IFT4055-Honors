@@ -119,7 +119,70 @@ Somewhat similar process for storing a Repository onto Neo4j
 
 *** Ant Workflow
 
+#+begin_src nxml
 
+  <?xml version="1.0" encoding="UTF-8"?>
+  <project default="runQuery">
+    <property name="skipRepo" value="false"/>
+    <property name="repo" value="Repo"/>
+    <property name="query" value="query"/>
+    <property name="cypherBin"
+              value="..\..\..\..\.Neo4jDesktop\relate-data\dbmss\dbms-ff24d0be-5732-4482-8e24-e3ec64f9deab\bin\cypher-shell.bat"/>
+
+    <target name="loadRepo">
+      <epsilon.emf.loadModel name="repository"
+                             read="true"
+                             store="false"
+                             metamodelfile="../Repository/metamodel/Repository.ecore"
+                             modelfile="../Repository/models/${repo}.xmi"/>
+    </target>
+
+    <target name="loadQuery">
+      <epsilon.emf.loadModel name="modelQuery"
+                             read="true"
+                             store="false"
+                             metamodelfile="metamodel/ModelQueryLanguage.ecore"
+                             modelfile="models/${query}.xmi"/>
+    </target>
+
+    <target name="storeRepo" depends="loadRepo">
+      <epsilon.egl src="../Repository/transformation/neo4j.egx">
+        <model ref="repository" as="M"/>
+      </epsilon.egl>
+      <echo>Repository Cypher Query Generated</echo>
+      <eclipse.refreshLocal resource="../Repository"/>
+    </target>
+
+    <target name="storeQuery" depends="loadQuery">
+      <epsilon.egl src="transformation/cypher.egx">
+        <model ref="modelQuery" as="M"/>
+      </epsilon.egl>
+      <echo>MQL Cypher Query Generated</echo>
+      <eclipse.refreshLocal resource="../ModelQueryLanguage"/>
+    </target>
+
+    <target name="createRepo" depends="storeRepo" unless="${skipRepo}">
+      <exec executable="cmd">
+        <arg value="/c"/>
+        <arg value="runCypher.bat"/>
+        <arg value="..\Repository\models\${repo}.cypher"/>
+        <arg value="${cypherBin}"/>
+      </exec>
+      <echo>Repo Database Initialized</echo>
+    </target>
+
+    <target name="runQuery" depends="createRepo, storeQuery">
+      <echo>Running Cypher Query...</echo>
+      <exec executable="cmd">
+        <arg value="/c"/>
+        <arg value="runCypher.bat"/>
+        <arg value="models\query.cypher"/>
+        <arg value="${cypherBin}"/>
+      </exec>
+    </target>
+  </project>
+
+#+end_src
 
 *** Neo4J Database
 
