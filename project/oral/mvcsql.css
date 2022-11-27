@@ -1,0 +1,11 @@
+.reveal ul *, ol *, table * {
+    font-size: 20pt;
+}
+
+.reveal h1 {
+    font-size: 70pt;
+}
+
+.reveal img {
+    max-width: 50%;
+}

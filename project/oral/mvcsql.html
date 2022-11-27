@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>MQL</title>
+<meta name="author" content="Philippe Gabriel"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/blood.css" id="theme"/>
+
+<link rel="stylesheet" href="./mvcsql.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">MQL</h1><p class="subtitle"></p>
+<h2 class="author">Philippe Gabriel</h2><h2 class="date">2022-12-01 Thu 09:30</h2>
+</section>
+
+<section>
+<section id="slide-orgd62f920">
+<h2 id="orgd62f920">MQL - A DSQL Designed to Query Versionnable Modeling Projects</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org29ac9b8">
+<h2 id="org29ac9b8">Plan</h2>
+<ol>
+<li>Introduction
+<ul>
+<li>Motivation</li>
+<li>Goal</li>
+<li>Terminology</li>
+
+</ul></li>
+<li>Problem
+<ul>
+<li>Problem to tackle</li>
+<li>Solution</li>
+<li>Implementation Details</li>
+<li>Example</li>
+
+</ul></li>
+<li>Demonstration</li>
+<li>Conclusion
+<ul>
+<li>Related work</li>
+<li>Futur work</li>
+
+</ul></li>
+<li>Questions/Discussion</li>
+<li>References</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-orge66cc32">
+<h2 id="orge66cc32">Introduction</h2>
+<div class="outline-text-2" id="text-orge66cc32">
+</div>
+</section>
+<section id="slide-org69b0ea3">
+<h3 id="org69b0ea3">Motivation</h3>
+<div class="outline-text-3" id="text-org69b0ea3">
+</div>
+</section>
+<section id="slide-org10e424b">
+<h4 id="org10e424b">Line-Oriented</h4>
+
+<div id="org6d5641f" class="figure">
+<p><img src="./img/mvcsql_20221120_234149_sBGlfg.png" alt="mvcsql_20221120_234149_sBGlfg.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgd36df07">
+<h4 id="orgd36df07">Semantically-Oriented</h4>
+
+<div id="orgbeb07d6" class="figure">
+<p><img src="modeldiff.png" alt="modeldiff.png" />
+</p>
+</div>
+
+<p>
+<i>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</i>
+</p>
+
+</section>
+<section id="slide-org80b1b62">
+<h4 id="org80b1b62">Domain-Specific Version Control Systems</h4>
+<ul>
+<li>Units of comparison - Semantic comparison</li>
+<li>Breadth of features (i.e. commands)</li>
+<li>Collaborative aspect</li>
+<li><b>Query VCS</b></li>
+<li>CICD</li>
+<li>Storage medium</li>
+<li>&#x2026;</li>
+
+</ul>
+
+<p>
+<i>A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer</i>
+</p>
+
+</section>
+<section id="slide-orgdf37675">
+<h3 id="orgdf37675">Goal</h3>
+<p>
+MQL - A DSQL to query such version-controlled modeling repositories
+</p>
+
+</section>
+<section id="slide-orgb6b801a">
+<h3 id="orgb6b801a">Terminology</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Term</th>
+<th scope="col" class="org-left">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Neo4J</td>
+<td class="org-left">Graph Database Management system</td>
+</tr>
+
+<tr>
+<td class="org-left">Cypher</td>
+<td class="org-left">Neo4J's graph query language</td>
+</tr>
+
+<tr>
+<td class="org-left">Graph database</td>
+<td class="org-left">Nodes and edges format of storing data useful for many relationships</td>
+</tr>
+
+<tr>
+<td class="org-left">VCS</td>
+<td class="org-left">System Responsible for managing changes to collections of information</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-org659d85c">
+<h2 id="org659d85c">Problem</h2>
+<div class="outline-text-2" id="text-org659d85c">
+</div>
+</section>
+<section id="slide-orgbb7cdc4">
+<h3 id="orgbb7cdc4">Problem to tackle</h3>
+<p>
+Provide and DSQL for querying modeling projects
+</p>
+
+</section>
+<section id="slide-org0ee0ace">
+<h3 id="org0ee0ace">Solution</h3>
+<ul>
+<li>Graph database</li>
+<li>Queries are expressed in MQL</li>
+<li>Relies on <span class="underline">model-to-text</span> transformation</li>
+
+</ul>
+
+</section>
+<section id="slide-org12c7d19">
+<h4 id="org12c7d19">Overview</h4>
+<ol>
+<li>MQL expression</li>
+<li>MQL model</li>
+<li>Model-to-text transformation</li>
+<li>Cypher expression</li>
+<li>Query execution on Neo4j database</li>
+
+</ol>
+
+<p>
+Somewhat similar process for storing a Repository onto Neo4j
+</p>
+
+</section>
+<section id="slide-orgd6189be">
+<h4 id="orgd6189be">Repository</h4>
+
+
+
+</section>
+<section id="slide-orga8213c0">
+<h4 id="orga8213c0">MQL</h4>
+
+
+
+</section>
+<section id="slide-orgbdd8e40">
+<h3 id="orgbdd8e40">Implementation Details</h3>
+<div class="outline-text-3" id="text-orgbdd8e40">
+</div>
+</section>
+<section id="slide-org5c2cb83">
+<h4 id="org5c2cb83">Xtext grammar</h4>
+
+
+
+</section>
+<section id="slide-orgdb0c983">
+<h4 id="orgdb0c983">Egl transformation</h4>
+
+
+
+</section>
+<section id="slide-org1c7d30e">
+<h4 id="org1c7d30e">Ant Workflow</h4>
+
+
+
+</section>
+<section id="slide-orge579a3a">
+<h4 id="orge579a3a">Neo4J Database</h4>
+
+
+
+</section>
+<section id="slide-org980fc75">
+<h3 id="org980fc75">Example</h3>
+<p>
+Textual MQL expression
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java"   ><code trim>
+<span style="color: #ecbe7b;">WHO</span> <span style="color: #ff6347;">head</span> <span style="color: #8c8c8c;">{</span>
+  branchName = <span style="color: #98c379;">"main"</span>
+<span style="color: #8c8c8c;">}</span>?
+
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org980fc75-split">
+
+<h3>Example</h3>
+
+<p>
+Converted to Cypher expression
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sql"   ><code trim>
+<span style="color: #c678dd;">MATCH</span> <span style="color: #8c8c8c;">(</span>b1:Branch<span style="color: #8c8c8c;">)</span>-<span style="color: #8c8c8c;">[</span>h1:head<span style="color: #8c8c8c;">]</span>-&gt;<span style="color: #8c8c8c;">(</span>c1:<span style="color: #c678dd;">Commit</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #c678dd;">WHERE</span> b1.branchName = "main"
+<span style="color: #c678dd;">RETURN</span> c1.author
+
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org0927fa0">
+<h2 id="org0927fa0">Demonstration</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org9421ee3">
+<h2 id="org9421ee3">Conclusion</h2>
+<div class="outline-text-2" id="text-org9421ee3">
+</div>
+</section>
+<section id="slide-orgc1123b7">
+<h3 id="orgc1123b7">Related Work</h3>
+<ul>
+<li>NMF</li>
+<li>AMoR</li>
+<li>Mogwai</li>
+
+</ul>
+
+</section>
+<section id="slide-org1fcf200">
+<h3 id="org1fcf200">Futur Work</h3>
+<p>
+MQL allows one to express simple queries on a version-controlled project at a higher level of abstraction
+</p>
+
+<ul>
+<li>Enhance autcompletion feature</li>
+<li>Permit more complex queries</li>
+<li>Integration with NMF</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7ab9128">
+<h2 id="org7ab9128">Questions / Discussion</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org81523b2">
+<h2 id="org81523b2">References</h2>
+<ol>
+<li>Domain Specific Version Control Systems by Manouchehr Zadahmad Jafarlou</li>
+<li>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</li>
+<li>A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer</li>
+
+</ol>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+slideNumber:true,
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+
+</script>
+</body>
+</html>

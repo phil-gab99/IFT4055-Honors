@@ -1,6 +1,12 @@
+query.mql
+
 WHO head {
     branchName = main
 }
+
+|
+
+
 
 MATCH (b:Branch)-[h:head]->(c:Commit)
 WHERE b.branchName = 'main'
@@ -81,9 +87,16 @@ WHERE ms.path = "~/Projects/diningroom.drm"
 RETURN m.owner
 
 WHEN change {
-    hash = ...   
+    hash = h123
 } [
     Table.x
 ]
+
+DiningRoom
+Room1.drm
+-->  Table t1 {
+     x: 2,
+     y: 2
+}
 
 MATCH (c:Commit)-[:]

@@ -55,4 +55,7 @@ class Model {
 class ModelSnapshot {
     attr String path;
     ref ModelSnapshot next;
+    attr String[*] diffModified;
+    attr String[*] diffCreated;
+    attr String[*] diffDeleted;
 }
