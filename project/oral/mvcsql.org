@@ -101,21 +101,21 @@ Somewhat similar process for storing a Repository onto Neo4j
 
 *** Repository
 
-
+[[./img/repo-metamodel.png]]
 
 *** MQL
 
-
+[[./img/mql-metamodel.png]]
 
 ** Implementation Details
 
 *** Xtext grammar
 
-
+[[./img/xtext-grammar.png]]
 
 *** Egl transformation
 
-
+[[./img/egl-transformation.png]]
 
 *** Ant Workflow
 
@@ -186,7 +186,7 @@ Somewhat similar process for storing a Repository onto Neo4j
 
 *** Neo4J Database
 
-
+[[./img/graphdb.png]]
 
 ** Example
 
@@ -211,6 +211,12 @@ Converted to Cypher expression
   RETURN c1.author
 
 #+end_src
+
+#+reveal: split:t
+
+Producing this result
+
+[[./img/example-result.png]]
 
 * Demonstration
 
