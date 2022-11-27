@@ -1,0 +1,176 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:nil
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:nil title:t toc:nil todo:t |:t
+#+title: MQL
+#+date: <2022-12-01 Thu 9:30-11:30>
+#+author: Philippe Gabriel
+#+email: philippe.gabriel.1@umontreal.ca
+#+startup: inlineimages latexpreview
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 28.2 (Org mode 9.5.5)
+#+cite_export:
+#+reveal_hlevel: 1
+#+reveal_init_options: slideNumber:true
+#+reveal_extra_css: ./mvcsql.css
+#+reveal_theme: blood
+
+* MQL - A DSQL Designed to Query Versionnable Modeling Projects
+
+* Plan
+
+1. Introduction
+   * Motivation
+   * Goal
+   * Terminology
+2. Problem
+   * Problem to tackle
+   * Solution
+   * Implementation Details
+   * Example
+3. Demonstration
+4. Conclusion
+   * Related work
+   * Futur work
+5. Questions/Discussion
+6. References
+
+* Introduction
+
+** Motivation
+
+*** Line-Oriented
+
+[[./img/mvcsql_20221120_234149_sBGlfg.png]]
+
+*** Semantically-Oriented
+
+[[./img/modeldiff.png]]
+
+/DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al./
+
+*** Domain-Specific Version Control Systems
+
+- Units of comparison - Semantic comparison
+- Breadth of features (i.e. commands)
+- Collaborative aspect
+- *Query VCS*
+- CICD
+- Storage medium
+- ...
+
+/A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer/
+
+** Goal
+
+MQL - A DSQL to query such version-controlled modeling repositories
+
+** Terminology
+
+| Term           | Definition                                                            |
+|----------------+-----------------------------------------------------------------------|
+| Neo4J          | Graph Database Management system                                      |
+| Cypher         | Neo4J's graph query language                                          |
+| Graph database | Nodes and edges format of storing data useful for many relationships  |
+| VCS            | System Responsible for managing changes to collections of information |
+
+* Problem
+
+** Problem to tackle
+
+Provide and DSQL for querying modeling projects
+
+** Solution
+
+- Graph database
+- Queries are expressed in MQL
+- Relies on _model-to-text_ transformation
+
+*** Overview
+
+1. MQL expression
+2. MQL model
+3. Model-to-text transformation
+4. Cypher expression
+5. Query execution on Neo4j database
+
+Somewhat similar process for storing a Repository onto Neo4j
+
+*** Repository
+
+
+
+*** MQL
+
+
+
+** Implementation Details
+
+*** Xtext grammar
+
+
+
+*** Egl transformation
+
+
+
+*** Ant Workflow
+
+
+
+*** Neo4J Database
+
+
+
+** Example
+
+Textual MQL expression
+
+#+begin_src java
+
+  WHO head {
+      branchName = "main"
+  }?
+
+#+end_src
+
+#+reveal: split:t
+
+Converted to Cypher expression
+
+#+begin_src sql
+
+  MATCH (b1:Branch)-[h1:head]->(c1:Commit)
+  WHERE b1.branchName = "main"
+  RETURN c1.author
+
+#+end_src
+
+* Demonstration
+
+* Conclusion
+
+** Related Work
+
+- NMF
+- AMoR
+- Mogwai
+
+** Futur Work
+
+MQL allows one to express simple queries on a version-controlled project at a higher level of abstraction
+
+- Enhance autcompletion feature
+- Permit more complex queries
+- Integration with NMF
+
+* Questions / Discussion
+
+* References
+
+1. Domain Specific Version Control Systems by Manouchehr Zadahmad Jafarlou
+2. DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.
+3. A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer
