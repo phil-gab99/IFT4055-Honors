@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>MQL</title>
+<meta name="author" content="Philippe Gabriel"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/blood.css" id="theme"/>
+
+<link rel="stylesheet" href="./oral.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">MQL</h1><p class="subtitle"></p>
+<h2 class="author">Philippe Gabriel</h2><h2 class="date">2022-12-13 Tue 09:30</h2>
+</section>
+
+<section>
+<section id="slide-orgfa92112">
+<h2 id="orgfa92112">MQL - Une DSQL pour Interroger des Projets Versionnables Spécifiques à un Domaine</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org19b173a">
+<h2 id="org19b173a">Plan</h2>
+<ol>
+<li>Introduction
+<ul>
+<li>Motivation</li>
+<li>But</li>
+<li>Terminologie</li>
+
+</ul></li>
+<li>Problème
+<ul>
+<li>Problème à résoudre</li>
+<li>Solution</li>
+<li>Détails d'Implémentation</li>
+<li>Exemple</li>
+
+</ul></li>
+<li>Démonstration</li>
+<li>Conclusion
+<ul>
+<li>Travaux Connexes</li>
+<li>Travaux Futurs</li>
+
+</ul></li>
+<li>Questions/Discussion</li>
+<li>Références</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org9347313">
+<h2 id="org9347313">Introduction</h2>
+<div class="outline-text-2" id="text-org9347313">
+</div>
+</section>
+<section id="slide-orgf030fc9">
+<h3 id="orgf030fc9">Motivation</h3>
+<div class="outline-text-3" id="text-orgf030fc9">
+</div>
+</section>
+<section id="slide-orgff0a133">
+<h4 id="orgff0a133">Orienté Ligne</h4>
+
+</section>
+<section id="slide-org4191392">
+<h4 id="org4191392">Orienté Sémantique</h4>
+<p>
+<i>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</i>
+</p>
+
+</section>
+<section id="slide-orgdc1106c">
+<h4 id="orgdc1106c">Systèmes de Contrôle de Versions Spécifiques au Domaine</h4>
+<ul>
+<li>Unité de comparaison - Comparaison sémantique</li>
+<li>Commandes offertes</li>
+<li>Aspect collaboratif</li>
+<li><b>Interroger le Système</b></li>
+<li>CICD</li>
+<li>Moyen de stockage</li>
+<li>&#x2026;</li>
+
+</ul>
+
+<p>
+<i>A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer</i>
+</p>
+
+</section>
+<section id="slide-orgbbddc0c">
+<h3 id="orgbbddc0c">But</h3>
+<p>
+MQL - Une DSQL pour interroger de tels projets versionnables
+</p>
+
+</section>
+<section id="slide-org86c84a8">
+<h3 id="org86c84a8">Terminologie</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Terme</th>
+<th scope="col" class="org-left">Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Neo4J</td>
+<td class="org-left">Système de gestion de bases de données de graphes</td>
+</tr>
+
+<tr>
+<td class="org-left">Cypher</td>
+<td class="org-left">Langage de requêtes de Neo4J</td>
+</tr>
+
+<tr>
+<td class="org-left">Base de données de graphes</td>
+<td class="org-left">Format de stockage en noeuds et arêtes utile pour plusieurs relations</td>
+</tr>
+
+<tr>
+<td class="org-left">VCS</td>
+<td class="org-left">Système responsable pour gérer les changements à une collection de donnée</td>
+</tr>
+
+<tr>
+<td class="org-left">Transformation de modèle-à-texte</td>
+<td class="org-left">Génération de fichier(s) source(s) à partir d'un modèle</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-org94e3a79">
+<h2 id="org94e3a79">Problème</h2>
+<div class="outline-text-2" id="text-org94e3a79">
+</div>
+</section>
+<section id="slide-org5434fa0">
+<h3 id="org5434fa0">Problème à résoudre</h3>
+<p>
+Offrir une DSQL pour interroger des projets versionnables spécifique à un domaine
+</p>
+
+</section>
+<section id="slide-orgdc30b25">
+<h3 id="orgdc30b25">Solution</h3>
+<ul>
+<li>Base de données de graphes</li>
+<li>Requêtes exprimées en MQL</li>
+<li>Dépend d'une transformation <span class="underline">modèle-à-texte</span></li>
+
+</ul>
+
+</section>
+<section id="slide-org644b984">
+<h4 id="org644b984">Aperçu</h4>
+<ol>
+<li>Expression MQL</li>
+<li>Modèle MQL</li>
+<li>Transformation modèle-à-texte</li>
+<li>Expression Cypher</li>
+<li>Exécution de la requête sur la base de données Neo4J</li>
+
+</ol>
+
+<p>
+Processus similaire pour stocker un Projet Versionnable sur Neo4J
+</p>
+
+</section>
+<section id="slide-orge17eaee">
+<h4 id="orge17eaee">Projet Versionnable</h4>
+
+</section>
+<section id="slide-org14f70e4">
+<h4 id="org14f70e4">MQL</h4>
+
+</section>
+<section id="slide-orgc19fd90">
+<h3 id="orgc19fd90">Détails d'Implémentation</h3>
+<div class="outline-text-3" id="text-orgc19fd90">
+</div>
+</section>
+<section id="slide-org826b439">
+<h4 id="org826b439">Grammaire Xtext</h4>
+
+</section>
+<section id="slide-org0800221">
+<h4 id="org0800221">Transformation Egl</h4>
+
+</section>
+<section id="slide-org6cb401f">
+<h4 id="org6cb401f">Ant workflow</h4>
+<div class="org-src-container">
+
+<pre  class="src src-nxml"   ><code trim>
+&lt;?<span style="color: #c678dd;">xml</span> <span style="color: #98f979; font-style: italic;">version="1.0" encoding="UTF-8"</span>?&gt;
+&lt;<span style="color: #00bfff;">project</span> <span style="color: #ff6347;">default</span>=<span style="color: #98c379;">"runQuery"</span>&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"skipRepo"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"false"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"repo"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"Repo"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"query"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"query"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"cypherBin"</span>
+            <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"..\..\..\..\.Neo4jDesktop\relate-data\dbmss\dbms-ff24d0be-5732-4482-8e24-e3ec64f9deab\bin\cypher-shell.bat"</span>/&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"loadRepo"</span>&gt;
+    &lt;<span style="color: #00bfff;">epsilon.emf.loadModel</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"repository"</span>
+                           <span style="color: #ff6347;">read</span>=<span style="color: #98c379;">"true"</span>
+                           <span style="color: #ff6347;">store</span>=<span style="color: #98c379;">"false"</span>
+                           <span style="color: #ff6347;">metamodelfile</span>=<span style="color: #98c379;">"../Repository/metamodel/Repository.ecore"</span>
+                           <span style="color: #ff6347;">modelfile</span>=<span style="color: #98c379;">"../Repository/models/${repo}.xmi"</span>/&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"loadQuery"</span>&gt;
+    &lt;<span style="color: #00bfff;">epsilon.emf.loadModel</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"modelQuery"</span>
+                           <span style="color: #ff6347;">read</span>=<span style="color: #98c379;">"true"</span>
+                           <span style="color: #ff6347;">store</span>=<span style="color: #98c379;">"false"</span>
+                           <span style="color: #ff6347;">metamodelfile</span>=<span style="color: #98c379;">"metamodel/ModelQueryLanguage.ecore"</span>
+                           <span style="color: #ff6347;">modelfile</span>=<span style="color: #98c379;">"models/${query}.xmi"</span>/&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"storeRepo"</span> <span style="color: #ff6347;">depends</span>=<span style="color: #98c379;">"loadRepo"</span>&gt;
+    &lt;<span style="color: #00bfff;">epsilon.egl</span> <span style="color: #ff6347;">src</span>=<span style="color: #98c379;">"../Repository/transformation/neo4j.egx"</span>&gt;
+      &lt;<span style="color: #00bfff;">model</span> <span style="color: #ff6347;">ref</span>=<span style="color: #98c379;">"repository"</span> <span style="color: #ff6347;">as</span>=<span style="color: #98c379;">"M"</span>/&gt;
+    &lt;/<span style="color: #00bfff;">epsilon.egl</span>&gt;
+    &lt;<span style="color: #00bfff;">echo</span>&gt;Repository Cypher Query Generated&lt;/<span style="color: #00bfff;">echo</span>&gt;
+    &lt;<span style="color: #00bfff;">eclipse.refreshLocal</span> <span style="color: #ff6347;">resource</span>=<span style="color: #98c379;">"../Repository"</span>/&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"storeQuery"</span> <span style="color: #ff6347;">depends</span>=<span style="color: #98c379;">"loadQuery"</span>&gt;
+    &lt;<span style="color: #00bfff;">epsilon.egl</span> <span style="color: #ff6347;">src</span>=<span style="color: #98c379;">"transformation/cypher.egx"</span>&gt;
+      &lt;<span style="color: #00bfff;">model</span> <span style="color: #ff6347;">ref</span>=<span style="color: #98c379;">"modelQuery"</span> <span style="color: #ff6347;">as</span>=<span style="color: #98c379;">"M"</span>/&gt;
+    &lt;/<span style="color: #00bfff;">epsilon.egl</span>&gt;
+    &lt;<span style="color: #00bfff;">echo</span>&gt;MQL Cypher Query Generated&lt;/<span style="color: #00bfff;">echo</span>&gt;
+    &lt;<span style="color: #00bfff;">eclipse.refreshLocal</span> <span style="color: #ff6347;">resource</span>=<span style="color: #98c379;">"../ModelQueryLanguage"</span>/&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"createRepo"</span> <span style="color: #ff6347;">depends</span>=<span style="color: #98c379;">"storeRepo"</span> <span style="color: #ff6347;">unless</span>=<span style="color: #98c379;">"${skipRepo}"</span>&gt;
+    &lt;<span style="color: #00bfff;">exec</span> <span style="color: #ff6347;">executable</span>=<span style="color: #98c379;">"cmd"</span>&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"/c"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"runCypher.bat"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"..\Repository\models\${repo}.cypher"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${cypherBin}"</span>/&gt;
+    &lt;/<span style="color: #00bfff;">exec</span>&gt;
+    &lt;<span style="color: #00bfff;">echo</span>&gt;Repo Database Initialized&lt;/<span style="color: #00bfff;">echo</span>&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+
+  &lt;<span style="color: #00bfff;">target</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"runQuery"</span> <span style="color: #ff6347;">depends</span>=<span style="color: #98c379;">"createRepo, storeQuery"</span>&gt;
+    &lt;<span style="color: #00bfff;">echo</span>&gt;Running Cypher Query...&lt;/<span style="color: #00bfff;">echo</span>&gt;
+    &lt;<span style="color: #00bfff;">exec</span> <span style="color: #ff6347;">executable</span>=<span style="color: #98c379;">"cmd"</span>&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"/c"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"runCypher.bat"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"models\query.cypher"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${cypherBin}"</span>/&gt;
+    &lt;/<span style="color: #00bfff;">exec</span>&gt;
+  &lt;/<span style="color: #00bfff;">target</span>&gt;
+&lt;/<span style="color: #00bfff;">project</span>&gt;
+
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgc52c67f">
+<h4 id="orgc52c67f">Base de données Neo4J</h4>
+
+</section>
+<section id="slide-orgd7b73f0">
+<h3 id="orgd7b73f0">Exemple</h3>
+<p>
+Expression MQL Textuelle
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java"   ><code trim>
+<span style="color: #ecbe7b;">WHO</span> <span style="color: #ff6347;">head</span> <span style="color: #8c8c8c;">{</span>
+    branchName = <span style="color: #98c379;">"main"</span>
+<span style="color: #8c8c8c;">}</span>?
+
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgd7b73f0-split">
+
+<h3>Exemple</h3>
+
+<p>
+Convertit en une expression Cypher
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sql"   ><code trim>
+<span style="color: #c678dd;">MATCH</span> <span style="color: #8c8c8c;">(</span>b1:Branch<span style="color: #8c8c8c;">)</span>-<span style="color: #8c8c8c;">[</span>h1:head<span style="color: #8c8c8c;">]</span>-&gt;<span style="color: #8c8c8c;">(</span>c1:<span style="color: #c678dd;">Commit</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #c678dd;">WHERE</span> b1.branchName = "main"
+<span style="color: #c678dd;">RETURN</span> c1.author
+
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgd7b73f0-split">
+
+<h3>Exemple</h3>
+
+<p>
+Produisant ce résultat
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org41bbba9">
+<h2 id="org41bbba9">Démonstration</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org1c79b21">
+<h2 id="org1c79b21">Conclusion</h2>
+<div class="outline-text-2" id="text-org1c79b21">
+</div>
+</section>
+<section id="slide-orgddceb8a">
+<h3 id="orgddceb8a">Travaux Connexes</h3>
+<ul>
+<li>NMF</li>
+<li>AMOR</li>
+<li>Mogwaï</li>
+
+</ul>
+
+</section>
+<section id="slide-orgb5a1ce9">
+<h3 id="orgb5a1ce9">Travaux Futurs</h3>
+<p>
+MQL permet d'exprimer de simples requêtes sur un projet versionnable à un niveau d'abstraction plus élevé
+</p>
+
+<ul>
+<li>Améliorer la fonction d'autocomplétion</li>
+<li>Permettre des requêtes plus complexes</li>
+<li>Intégration avec NMF</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org184dc3f">
+<h2 id="org184dc3f">Questions / Discussion</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org1330ab2">
+<h2 id="org1330ab2">Références</h2>
+<ol>
+<li>Domain Specific Version Control Systems by Manouchehr Zadahmad Jafarlou</li>
+<li>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</li>
+<li>A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer</li>
+<li>AMOR - Towards Adaptable Model Versioning by Kerstin Altmanninger et al.</li>
+<li>A Framework for Domain-Specific Modeling on Graph Databases by Nikitchyn Vitalii</li>
+<li>Mogwaï: A Framework to Hanlde Complex Queries on Large Models</li>
+
+</ol>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+slideNumber:true,
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+
+</script>
+</body>
+</html>

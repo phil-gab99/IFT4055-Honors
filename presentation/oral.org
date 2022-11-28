@@ -1,0 +1,233 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:nil
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:nil title:t toc:nil todo:t |:t
+#+title: MQL
+#+date: <2022-12-13 Tue 9:30-11:30>
+#+author: Philippe Gabriel
+#+email: philippe.gabriel.1@umontreal.ca
+#+startup: inlineimages latexpreview
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 28.2 (Org mode 9.5.5)
+#+cite_export:
+#+reveal_hlevel: 1
+#+reveal_init_options: slideNumber:true
+#+reveal_extra_css: ./oral.css
+#+reveal_theme: blood
+
+* MQL - Une DSQL pour Interroger des Projets Versionnables Spécifiques à un Domaine 
+
+* Plan
+
+1. Introduction
+   * Motivation
+   * But
+   * Terminologie
+2. Problème
+   * Problème à résoudre
+   * Solution
+   * Détails d'Implémentation
+   * Exemple
+3. Démonstration
+4. Conclusion
+   * Travaux Connexes
+   * Travaux Futurs
+5. Questions/Discussion
+6. Références
+
+* Introduction
+
+** Motivation
+
+*** Orienté Ligne
+
+*** Orienté Sémantique
+
+/DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al./
+
+*** Systèmes de Contrôle de Versions Spécifiques au Domaine
+
+- Unité de comparaison - Comparaison sémantique
+- Commandes offertes
+- Aspect collaboratif
+- *Interroger le Système*
+- CICD
+- Moyen de stockage
+- ...
+
+/A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer/
+
+** But
+
+MQL - Une DSQL pour interroger de tels projets versionnables
+
+** Terminologie
+
+| Terme                            | Définition                                                                |
+|----------------------------------+---------------------------------------------------------------------------|
+| Neo4J                            | Système de gestion de bases de données de graphes                         |
+| Cypher                           | Langage de requêtes de Neo4J                                              |
+| Base de données de graphes       | Format de stockage en noeuds et arêtes utile pour plusieurs relations     |
+| VCS                              | Système responsable pour gérer les changements à une collection de donnée |
+| Transformation de modèle-à-texte | Génération de fichier(s) source(s) à partir d'un modèle                   |
+
+* Problème
+
+** Problème à résoudre
+
+Offrir une DSQL pour interroger des projets versionnables spécifique à un domaine
+
+** Solution
+
+- Base de données de graphes
+- Requêtes exprimées en MQL
+- Dépend d'une transformation _modèle-à-texte_
+
+*** Aperçu
+
+1. Expression MQL
+2. Modèle MQL
+3. Transformation modèle-à-texte
+4. Expression Cypher
+5. Exécution de la requête sur la base de données Neo4J
+
+Processus similaire pour stocker un Projet Versionnable sur Neo4J
+
+*** Projet Versionnable
+
+*** MQL
+
+** Détails d'Implémentation
+
+*** Grammaire Xtext
+
+*** Transformation Egl
+
+*** Ant workflow
+
+#+begin_src nxml
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <project default="runQuery">
+    <property name="skipRepo" value="false"/>
+    <property name="repo" value="Repo"/>
+    <property name="query" value="query"/>
+    <property name="cypherBin"
+              value="..\..\..\..\.Neo4jDesktop\relate-data\dbmss\dbms-ff24d0be-5732-4482-8e24-e3ec64f9deab\bin\cypher-shell.bat"/>
+
+    <target name="loadRepo">
+      <epsilon.emf.loadModel name="repository"
+                             read="true"
+                             store="false"
+                             metamodelfile="../Repository/metamodel/Repository.ecore"
+                             modelfile="../Repository/models/${repo}.xmi"/>
+    </target>
+
+    <target name="loadQuery">
+      <epsilon.emf.loadModel name="modelQuery"
+                             read="true"
+                             store="false"
+                             metamodelfile="metamodel/ModelQueryLanguage.ecore"
+                             modelfile="models/${query}.xmi"/>
+    </target>
+
+    <target name="storeRepo" depends="loadRepo">
+      <epsilon.egl src="../Repository/transformation/neo4j.egx">
+        <model ref="repository" as="M"/>
+      </epsilon.egl>
+      <echo>Repository Cypher Query Generated</echo>
+      <eclipse.refreshLocal resource="../Repository"/>
+    </target>
+
+    <target name="storeQuery" depends="loadQuery">
+      <epsilon.egl src="transformation/cypher.egx">
+        <model ref="modelQuery" as="M"/>
+      </epsilon.egl>
+      <echo>MQL Cypher Query Generated</echo>
+      <eclipse.refreshLocal resource="../ModelQueryLanguage"/>
+    </target>
+
+    <target name="createRepo" depends="storeRepo" unless="${skipRepo}">
+      <exec executable="cmd">
+        <arg value="/c"/>
+        <arg value="runCypher.bat"/>
+        <arg value="..\Repository\models\${repo}.cypher"/>
+        <arg value="${cypherBin}"/>
+      </exec>
+      <echo>Repo Database Initialized</echo>
+    </target>
+
+    <target name="runQuery" depends="createRepo, storeQuery">
+      <echo>Running Cypher Query...</echo>
+      <exec executable="cmd">
+        <arg value="/c"/>
+        <arg value="runCypher.bat"/>
+        <arg value="models\query.cypher"/>
+        <arg value="${cypherBin}"/>
+      </exec>
+    </target>
+  </project>
+
+#+end_src
+
+*** Base de données Neo4J
+
+** Exemple
+
+Expression MQL Textuelle
+
+#+begin_src java
+
+  WHO head {
+      branchName = "main"
+  }?
+
+#+end_src
+
+#+reveal: split:t
+
+Convertit en une expression Cypher
+
+#+begin_src sql
+
+  MATCH (b1:Branch)-[h1:head]->(c1:Commit)
+  WHERE b1.branchName = "main"
+  RETURN c1.author
+
+#+end_src
+
+#+reveal: split:t
+
+Produisant ce résultat
+
+* Démonstration
+
+* Conclusion
+
+** Travaux Connexes
+
+- NMF
+- AMOR
+- Mogwaï
+
+** Travaux Futurs
+
+MQL permet d'exprimer de simples requêtes sur un projet versionnable à un niveau d'abstraction plus élevé
+
+- Améliorer la fonction d'autocomplétion
+- Permettre des requêtes plus complexes
+- Intégration avec NMF
+
+* Questions / Discussion
+
+* Références
+
+1. Domain Specific Version Control Systems by Manouchehr Zadahmad Jafarlou
+2. DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.
+3. A Roadmap towards Domain-Specific Version Control Systems by Eugene Syriani and Manuel Wimmer
+4. AMOR - Towards Adaptable Model Versioning by Kerstin Altmanninger et al.
+5. A Framework for Domain-Specific Modeling on Graph Databases by Nikitchyn Vitalii
+6. Mogwaï: A Framework to Hanlde Complex Queries on Large Models
