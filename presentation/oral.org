@@ -112,7 +112,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 
 *** Grammaire Xtext
 
+[[./img/mqlex.png]]
+
 *** Transformation Egl
+
+[[./img/egl-transformation.png]]
 
 *** Ant workflow
 
