@@ -44,7 +44,11 @@
 
 *** Orienté Ligne
 
+[[./img/mvcsql_20221120_234149_sBGlfg.png]]
+
 *** Orienté Sémantique
+
+[[./img/modeldiff.png]]
 
 /DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al./
 
@@ -69,8 +73,8 @@ MQL - Une DSQL pour interroger de tels projets versionnables
 | Terme                            | Définition                                                                |
 |----------------------------------+---------------------------------------------------------------------------|
 | Neo4J                            | Système de gestion de bases de données de graphes                         |
-| Cypher                           | Langage de requêtes de Neo4J                                              |
 | Base de données de graphes       | Format de stockage en noeuds et arêtes utile pour plusieurs relations     |
+| Cypher                           | Langage de requêtes de Neo4J                                              |
 | VCS                              | Système responsable pour gérer les changements à une collection de donnée |
 | Transformation de modèle-à-texte | Génération de fichier(s) source(s) à partir d'un modèle                   |
 
@@ -98,7 +102,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 
 *** Projet Versionnable
 
+[[./img/repomm.png]]
+
 *** MQL
+
+[[./img/mqlmm.png]]
 
 ** Détails d'Implémentation
 
