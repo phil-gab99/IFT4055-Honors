@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{dsmcompare}
+Manouchehr~Zadahmad Jafarlou, Eugene Syriani, Omar Alam, Esther Guerra, and
+  Juan de~Lara.
+\newblock Dsmcompare: domain-specific model differencing for graphical
+  domain-specific languages.
+\newblock {\em Software and Systems Modeling}, 21(5):2067--2096, October 2022.
+
+\bibitem{dsvcs}
+Eugene Syriani and Manuel Wimmer.
+\newblock A roadmap towards domain-specific version control systems.
+\newblock {\em White Paper}, September 2018.
+
+\end{thebibliography}

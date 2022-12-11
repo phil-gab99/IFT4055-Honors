@@ -116,6 +116,7 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 
 *** Transformation Egl
 
+#+attr_html: :width 60%
 [[./img/egl-transformation.png]]
 
 *** Ant workflow
@@ -127,6 +128,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
     <property name="skipRepo" value="false"/>
     <property name="repo" value="Repo"/>
     <property name="query" value="query"/>
+    <property name="protocol" value="bolt"/>
+    <property name="host" value="localhost"/>
+    <property name="port" value="11003"/>
+    <property name="uname" value="neo4j"/>
+    <property name="passwd" value="neo4j"/>
     <property name="cypherBin"
               value="..\..\..\..\.Neo4jDesktop\relate-data\dbmss\dbms-ff24d0be-5732-4482-8e24-e3ec64f9deab\bin\cypher-shell.bat"/>
 
@@ -168,6 +174,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
         <arg value="runCypher.bat"/>
         <arg value="..\Repository\models\${repo}.cypher"/>
         <arg value="${cypherBin}"/>
+        <arg value="${protocol}"/>
+        <arg value="${host}"/>
+        <arg value="${port}"/>
+        <arg value="${uname}"/>
+        <arg value="${passwd}"/>
       </exec>
       <echo>Repo Database Initialized</echo>
     </target>
@@ -179,6 +190,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
         <arg value="runCypher.bat"/>
         <arg value="models\query.cypher"/>
         <arg value="${cypherBin}"/>
+        <arg value="${protocol}"/>
+        <arg value="${host}"/>
+        <arg value="${port}"/>
+        <arg value="${uname}"/>
+        <arg value="${passwd}"/>
       </exec>
     </target>
   </project>
@@ -187,15 +203,21 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 
 *** Base de données Neo4J
 
+#+attr_html: :width 60%
+[[./img/repodb.png]]
+
 ** Exemple
 
 Expression MQL Textuelle
 
 #+begin_src java
 
-  WHO head {
-      branchName = "main"
-  }?
+  WHERE model {
+    owner = "Philippe"
+  },
+  WHEN changed [
+    "MyTable.x = 3"
+  ]?
 
 #+end_src
 
@@ -203,11 +225,14 @@ Expression MQL Textuelle
 
 Convertit en une expression Cypher
 
-#+begin_src sql
+#+begin_src ruby
 
-  MATCH (b1:Branch)-[h1:head]->(c1:Commit)
-  WHERE b1.branchName = "main"
-  RETURN c1.author
+  MATCH (m1:Model)-[cr1:current]->(ms1:ModelSnapshot)
+  WHERE m1.owner = "Philippe"
+  RETURN ms1.path;
+  MATCH (c1:Commit)-[mm1:modifiedModels]->(ms2:ModelSnapshot)
+  WHERE "MyTable.x = 3" IN ms2.diffModified
+  RETURN c1.timestamp;
 
 #+end_src
 
@@ -215,14 +240,16 @@ Convertit en une expression Cypher
 
 Produisant ce résultat
 
+[[./img/mqlres.png]]
+
 * Démonstration
 
 * Conclusion
 
 ** Travaux Connexes
 
-- NMF
 - AMOR
+- Domain-Specific Version Control Systems par Manouchehr
 - Mogwaï
 
 ** Travaux Futurs
@@ -230,8 +257,11 @@ Produisant ce résultat
 MQL permet d'exprimer de simples requêtes sur un projet versionnable à un niveau d'abstraction plus élevé
 
 - Améliorer la fonction d'autocomplétion
-- Permettre des requêtes plus complexes
+- Expressivité
+- Déploiement
+- Parseur de projets
 - Intégration avec NMF
+- Intégration avec DSMCompare
 
 * Questions / Discussion
 

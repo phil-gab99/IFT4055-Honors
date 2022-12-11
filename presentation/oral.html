@@ -34,14 +34,14 @@
 </section>
 
 <section>
-<section id="slide-orgfa92112">
-<h2 id="orgfa92112">MQL - Une DSQL pour Interroger des Projets Versionnables Spécifiques à un Domaine</h2>
+<section id="slide-org574fc41">
+<h2 id="org574fc41">MQL - Une DSQL pour Interroger des Projets Versionnables Spécifiques à un Domaine</h2>
 
 </section>
 </section>
 <section>
-<section id="slide-org19b173a">
-<h2 id="org19b173a">Plan</h2>
+<section id="slide-org98a0bef">
+<h2 id="org98a0bef">Plan</h2>
 <ol>
 <li>Introduction
 <ul>
@@ -73,29 +73,40 @@
 </section>
 </section>
 <section>
-<section id="slide-org9347313">
-<h2 id="org9347313">Introduction</h2>
-<div class="outline-text-2" id="text-org9347313">
+<section id="slide-orgd982b18">
+<h2 id="orgd982b18">Introduction</h2>
+<div class="outline-text-2" id="text-orgd982b18">
 </div>
 </section>
-<section id="slide-orgf030fc9">
-<h3 id="orgf030fc9">Motivation</h3>
-<div class="outline-text-3" id="text-orgf030fc9">
+<section id="slide-org6fbc293">
+<h3 id="org6fbc293">Motivation</h3>
+<div class="outline-text-3" id="text-org6fbc293">
 </div>
 </section>
-<section id="slide-orgff0a133">
-<h4 id="orgff0a133">Orienté Ligne</h4>
+<section id="slide-orgdba61d6">
+<h4 id="orgdba61d6">Orienté Ligne</h4>
+
+<div id="orgb61ada0" class="figure">
+<p><img src="./img/mvcsql_20221120_234149_sBGlfg.png" alt="mvcsql_20221120_234149_sBGlfg.png" />
+</p>
+</div>
 
 </section>
-<section id="slide-org4191392">
-<h4 id="org4191392">Orienté Sémantique</h4>
+<section id="slide-org3944c1d">
+<h4 id="org3944c1d">Orienté Sémantique</h4>
+
+<div id="org3bc5e37" class="figure">
+<p><img src="./img/modeldiff.png" alt="modeldiff.png" />
+</p>
+</div>
+
 <p>
 <i>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</i>
 </p>
 
 </section>
-<section id="slide-orgdc1106c">
-<h4 id="orgdc1106c">Systèmes de Contrôle de Versions Spécifiques au Domaine</h4>
+<section id="slide-orgdc301ff">
+<h4 id="orgdc301ff">Systèmes de Contrôle de Versions Spécifiques au Domaine</h4>
 <ul>
 <li>Unité de comparaison - Comparaison sémantique</li>
 <li>Commandes offertes</li>
@@ -112,15 +123,15 @@
 </p>
 
 </section>
-<section id="slide-orgbbddc0c">
-<h3 id="orgbbddc0c">But</h3>
+<section id="slide-org03a249f">
+<h3 id="org03a249f">But</h3>
 <p>
 MQL - Une DSQL pour interroger de tels projets versionnables
 </p>
 
 </section>
-<section id="slide-org86c84a8">
-<h3 id="org86c84a8">Terminologie</h3>
+<section id="slide-org91ff3fd">
+<h3 id="org91ff3fd">Terminologie</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -142,13 +153,13 @@ MQL - Une DSQL pour interroger de tels projets versionnables
 </tr>
 
 <tr>
-<td class="org-left">Cypher</td>
-<td class="org-left">Langage de requêtes de Neo4J</td>
+<td class="org-left">Base de données de graphes</td>
+<td class="org-left">Format de stockage en noeuds et arêtes utile pour plusieurs relations</td>
 </tr>
 
 <tr>
-<td class="org-left">Base de données de graphes</td>
-<td class="org-left">Format de stockage en noeuds et arêtes utile pour plusieurs relations</td>
+<td class="org-left">Cypher</td>
+<td class="org-left">Langage de requêtes de Neo4J</td>
 </tr>
 
 <tr>
@@ -166,20 +177,20 @@ MQL - Une DSQL pour interroger de tels projets versionnables
 </section>
 </section>
 <section>
-<section id="slide-org94e3a79">
-<h2 id="org94e3a79">Problème</h2>
-<div class="outline-text-2" id="text-org94e3a79">
+<section id="slide-org42340ab">
+<h2 id="org42340ab">Problème</h2>
+<div class="outline-text-2" id="text-org42340ab">
 </div>
 </section>
-<section id="slide-org5434fa0">
-<h3 id="org5434fa0">Problème à résoudre</h3>
+<section id="slide-org7a55ce9">
+<h3 id="org7a55ce9">Problème à résoudre</h3>
 <p>
 Offrir une DSQL pour interroger des projets versionnables spécifique à un domaine
 </p>
 
 </section>
-<section id="slide-orgdc30b25">
-<h3 id="orgdc30b25">Solution</h3>
+<section id="slide-org36a6493">
+<h3 id="org36a6493">Solution</h3>
 <ul>
 <li>Base de données de graphes</li>
 <li>Requêtes exprimées en MQL</li>
@@ -188,8 +199,8 @@ Offrir une DSQL pour interroger des projets versionnables spécifique à un doma
 </ul>
 
 </section>
-<section id="slide-org644b984">
-<h4 id="org644b984">Aperçu</h4>
+<section id="slide-orgef1498a">
+<h4 id="orgef1498a">Aperçu</h4>
 <ol>
 <li>Expression MQL</li>
 <li>Modèle MQL</li>
@@ -204,29 +215,49 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 </p>
 
 </section>
-<section id="slide-orge17eaee">
-<h4 id="orge17eaee">Projet Versionnable</h4>
+<section id="slide-org400b212">
+<h4 id="org400b212">Projet Versionnable</h4>
+
+<div id="orgbd955aa" class="figure">
+<p><img src="./img/repomm.png" alt="repomm.png" />
+</p>
+</div>
 
 </section>
-<section id="slide-org14f70e4">
-<h4 id="org14f70e4">MQL</h4>
+<section id="slide-org04016f4">
+<h4 id="org04016f4">MQL</h4>
+
+<div id="orgb932ba5" class="figure">
+<p><img src="./img/mqlmm.png" alt="mqlmm.png" />
+</p>
+</div>
 
 </section>
-<section id="slide-orgc19fd90">
-<h3 id="orgc19fd90">Détails d'Implémentation</h3>
-<div class="outline-text-3" id="text-orgc19fd90">
+<section id="slide-orgf5eb123">
+<h3 id="orgf5eb123">Détails d'Implémentation</h3>
+<div class="outline-text-3" id="text-orgf5eb123">
 </div>
 </section>
-<section id="slide-org826b439">
-<h4 id="org826b439">Grammaire Xtext</h4>
+<section id="slide-org41dc895">
+<h4 id="org41dc895">Grammaire Xtext</h4>
+
+<div id="org11bbf6c" class="figure">
+<p><img src="./img/mqlex.png" alt="mqlex.png" />
+</p>
+</div>
 
 </section>
-<section id="slide-org0800221">
-<h4 id="org0800221">Transformation Egl</h4>
+<section id="slide-org6e2847e">
+<h4 id="org6e2847e">Transformation Egl</h4>
+
+<div id="orgb3ccd71" class="figure">
+<p><img src="./img/egl-transformation.png" alt="egl-transformation.png" width="60%" />
+</p>
+</div>
 
 </section>
-<section id="slide-org6cb401f">
-<h4 id="org6cb401f">Ant workflow</h4>
+<section id="slide-orgef0c1f5">
+<h4 id="orgef0c1f5">Ant workflow</h4>
 <div class="org-src-container">
 
 <pre  class="src src-nxml"   ><code trim>
@@ -235,6 +266,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
   &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"skipRepo"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"false"</span>/&gt;
   &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"repo"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"Repo"</span>/&gt;
   &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"query"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"query"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"protocol"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"bolt"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"host"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"localhost"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"port"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"11003"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"uname"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"neo4j"</span>/&gt;
+  &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"passwd"</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"neo4j"</span>/&gt;
   &lt;<span style="color: #00bfff;">property</span> <span style="color: #ff6347;">name</span>=<span style="color: #98c379;">"cypherBin"</span>
             <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"..\..\..\..\.Neo4jDesktop\relate-data\dbmss\dbms-ff24d0be-5732-4482-8e24-e3ec64f9deab\bin\cypher-shell.bat"</span>/&gt;
 
@@ -276,6 +312,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"runCypher.bat"</span>/&gt;
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"..\Repository\models\${repo}.cypher"</span>/&gt;
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${cypherBin}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${protocol}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${host}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${port}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${uname}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${passwd}"</span>/&gt;
     &lt;/<span style="color: #00bfff;">exec</span>&gt;
     &lt;<span style="color: #00bfff;">echo</span>&gt;Repo Database Initialized&lt;/<span style="color: #00bfff;">echo</span>&gt;
   &lt;/<span style="color: #00bfff;">target</span>&gt;
@@ -287,6 +328,11 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"runCypher.bat"</span>/&gt;
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"models\query.cypher"</span>/&gt;
       &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${cypherBin}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${protocol}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${host}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${port}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${uname}"</span>/&gt;
+      &lt;<span style="color: #00bfff;">arg</span> <span style="color: #ff6347;">value</span>=<span style="color: #98c379;">"${passwd}"</span>/&gt;
     &lt;/<span style="color: #00bfff;">exec</span>&gt;
   &lt;/<span style="color: #00bfff;">target</span>&gt;
 &lt;/<span style="color: #00bfff;">project</span>&gt;
@@ -295,12 +341,17 @@ Processus similaire pour stocker un Projet Versionnable sur Neo4J
 </div>
 
 </section>
-<section id="slide-orgc52c67f">
-<h4 id="orgc52c67f">Base de données Neo4J</h4>
+<section id="slide-org7b9a6a4">
+<h4 id="org7b9a6a4">Base de données Neo4J</h4>
+
+<div id="org0798dc6" class="figure">
+<p><img src="./img/repodb.png" alt="repodb.png" width="60%" />
+</p>
+</div>
 
 </section>
-<section id="slide-orgd7b73f0">
-<h3 id="orgd7b73f0">Exemple</h3>
+<section id="slide-org1703c8b">
+<h3 id="org1703c8b">Exemple</h3>
 <p>
 Expression MQL Textuelle
 </p>
@@ -308,15 +359,18 @@ Expression MQL Textuelle
 <div class="org-src-container">
 
 <pre  class="src src-java"   ><code trim>
-<span style="color: #ecbe7b;">WHO</span> <span style="color: #ff6347;">head</span> <span style="color: #8c8c8c;">{</span>
-    branchName = <span style="color: #98c379;">"main"</span>
-<span style="color: #8c8c8c;">}</span>?
+<span style="color: #ecbe7b;">WHERE</span> <span style="color: #ff6347;">model</span> <span style="color: #8c8c8c;">{</span>
+  owner = <span style="color: #98c379;">"Philippe"</span>
+<span style="color: #8c8c8c;">}</span>,
+<span style="color: #ecbe7b;">WHEN</span> <span style="color: #ff6347;">changed</span> <span style="color: #8c8c8c;">[</span>
+  <span style="color: #98c379;">"MyTable.x = 3"</span>
+<span style="color: #8c8c8c;">]</span>?
 
 </code></pre>
 </div>
 
 </section>
-<section id="slide-orgd7b73f0-split">
+<section id="slide-org1703c8b-split">
 
 <h3>Exemple</h3>
 
@@ -326,16 +380,19 @@ Convertit en une expression Cypher
 
 <div class="org-src-container">
 
-<pre  class="src src-sql"   ><code trim>
-<span style="color: #c678dd;">MATCH</span> <span style="color: #8c8c8c;">(</span>b1:Branch<span style="color: #8c8c8c;">)</span>-<span style="color: #8c8c8c;">[</span>h1:head<span style="color: #8c8c8c;">]</span>-&gt;<span style="color: #8c8c8c;">(</span>c1:<span style="color: #c678dd;">Commit</span><span style="color: #8c8c8c;">)</span>
-<span style="color: #c678dd;">WHERE</span> b1.branchName = "main"
-<span style="color: #c678dd;">RETURN</span> c1.author
+<pre  class="src src-ruby"   ><code trim>
+<span style="color: #ecbe7b;">MATCH</span> <span style="color: #8c8c8c;">(</span>m1<span style="color: #eead0e;">:Model</span><span style="color: #8c8c8c;">)</span>-<span style="color: #8c8c8c;">[</span>cr1<span style="color: #eead0e;">:current</span><span style="color: #8c8c8c;">]</span>-&gt;<span style="color: #8c8c8c;">(</span>ms1<span style="color: #eead0e;">:ModelSnapshot</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #ecbe7b;">WHERE</span> m1.owner = <span style="color: #98c379;">"Philippe"</span>
+<span style="color: #ecbe7b;">RETURN</span> ms1.path;
+<span style="color: #ecbe7b;">MATCH</span> <span style="color: #8c8c8c;">(</span>c1<span style="color: #eead0e;">:Commit</span><span style="color: #8c8c8c;">)</span>-<span style="color: #8c8c8c;">[</span>mm1<span style="color: #eead0e;">:modifiedModels</span><span style="color: #8c8c8c;">]</span>-&gt;<span style="color: #8c8c8c;">(</span>ms2<span style="color: #eead0e;">:ModelSnapshot</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #ecbe7b;">WHERE</span> <span style="color: #98c379;">"MyTable.x = 3"</span> <span style="color: #ecbe7b;">IN</span> ms2.diffModified
+<span style="color: #ecbe7b;">RETURN</span> c1.timestamp;
 
 </code></pre>
 </div>
 
 </section>
-<section id="slide-orgd7b73f0-split">
+<section id="slide-org1703c8b-split">
 
 <h3>Exemple</h3>
 
@@ -343,54 +400,63 @@ Convertit en une expression Cypher
 Produisant ce résultat
 </p>
 
-</section>
-</section>
-<section>
-<section id="slide-org41bbba9">
-<h2 id="org41bbba9">Démonstration</h2>
+
+<div id="org22ba7b8" class="figure">
+<p><img src="./img/mqlres.png" alt="mqlres.png" />
+</p>
+</div>
 
 </section>
 </section>
 <section>
-<section id="slide-org1c79b21">
-<h2 id="org1c79b21">Conclusion</h2>
-<div class="outline-text-2" id="text-org1c79b21">
+<section id="slide-org00c8ab1">
+<h2 id="org00c8ab1">Démonstration</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf1e5cc1">
+<h2 id="orgf1e5cc1">Conclusion</h2>
+<div class="outline-text-2" id="text-orgf1e5cc1">
 </div>
 </section>
-<section id="slide-orgddceb8a">
-<h3 id="orgddceb8a">Travaux Connexes</h3>
+<section id="slide-org7fce828">
+<h3 id="org7fce828">Travaux Connexes</h3>
 <ul>
-<li>NMF</li>
 <li>AMOR</li>
+<li>Domain-Specific Version Control Systems par Manouchehr</li>
 <li>Mogwaï</li>
 
 </ul>
 
 </section>
-<section id="slide-orgb5a1ce9">
-<h3 id="orgb5a1ce9">Travaux Futurs</h3>
+<section id="slide-org3c92b06">
+<h3 id="org3c92b06">Travaux Futurs</h3>
 <p>
 MQL permet d'exprimer de simples requêtes sur un projet versionnable à un niveau d'abstraction plus élevé
 </p>
 
 <ul>
 <li>Améliorer la fonction d'autocomplétion</li>
-<li>Permettre des requêtes plus complexes</li>
+<li>Expressivité</li>
+<li>Déploiement</li>
+<li>Parseur de projets</li>
 <li>Intégration avec NMF</li>
+<li>Intégration avec DSMCompare</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org184dc3f">
-<h2 id="org184dc3f">Questions / Discussion</h2>
+<section id="slide-org0a4befe">
+<h2 id="org0a4befe">Questions / Discussion</h2>
 
 </section>
 </section>
 <section>
-<section id="slide-org1330ab2">
-<h2 id="org1330ab2">Références</h2>
+<section id="slide-org7364e2d">
+<h2 id="org7364e2d">Références</h2>
 <ol>
 <li>Domain Specific Version Control Systems by Manouchehr Zadahmad Jafarlou</li>
 <li>DSMCompare: domain-specific model differencing for graphical domain-specific languages by Manouchehr Zadahmad et al.</li>
