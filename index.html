@@ -1,200 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css" type="text/css" media="screen"/>
+    <title>IFT-4055 - Projet Informatique Honor</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="index.css" type="text/css" media="screen"/>
-  <title>IFT-4055 - Projet Informatique Honor</title>
-</head>
+  <body>
+    <center>
+      <h1>IFT-4055 - Projet Informatique Honor</h1>
+      <h4>Philippe Gabriel - 20120600</h4>
+    </center>
 
-<body>
-  <center>
-    <h1>IFT-4055 - Projet Informatique Honor</h1>
-    <h4>Philippe Gabriel - 20120600</h4>
-  </center>
+    <h2>Contexte</h2>
+    <p>
+      L'idée du projet provient du professeur M. Eugene Syriani. L'idée
+      provenait des suggestions de projets à compléter pour le cours IFT-6253
+      (<i>Conception dirigée par les modèles</i>). Il m'avait proposé de
+      travailler sur ce projet pour IFT-6253 et IFT-4055 - On pourrait décider
+      plus tard la frontière de ce qui sera présenté dans le cadre du cours
+      IFT-6253 et pour ce qui le sera pour le cours IFT-4055. C'est avec lui que
+      j'ai également discuté les détails du projet, la composante dont je
+      travaillerais ainsi que de la littérature scientifique à ce sujet. Il
+      m'avait également dit que, considérant le fait qu'il est professeur
+      responsable pour les projets informatique cette session, il ne pourra pas
+      directement être mon superviseur. Il m'a suggéré le professeur M. Michalis
+      Famelis comme superviseur pour ce projet.
+    </p>
 
-  <h2>Contexte</h2>
-  <p>
-    L'idée du projet provient du professeur M. Eugene Syriani. L'idée provenait
-    des suggestions de projets à compléter pour le cours IFT-6253
-    (<i>Conception dirigée par les modèles</i>). Il m'avait proposé de
-    travailler sur ce projet pour IFT-6253 et IFT-4055 - On pourrait décider
-    plus tard la frontière de ce qui sera présenté dans le cadre du cours
-    IFT-6253 et pour ce qui le sera pour le cours IFT-4055. C'est avec lui que
-    j'ai également discuté les détails du projet, la composante dont je
-    travaillerais ainsi que de la littérature scientifique à ce sujet. Il
-    m'avait également dit que, considérant le fait qu'il est professeur
-    responsable pour les projets informatique cette session, il ne pourra pas
-    directement être mon superviseur. Il m'a suggéré le professeur M. Michalis
-    Famelis comme superviseur pour ce projet.
-  </p>
+    <h2>A - Énoncé du projet</h2>
+    <p>
+      Le projet s'intitule
+      <i>Système de contrôle de version (VCS) pour les unités d'un modèle</i>.
+      L'idée est de tenter d'appliquer les concepts de contrôle de version pour
+      tenir compte de la sémantique présente durant la modélisation. Puisque
+      c'est une tâche assez immense, le travail que j'aurais à faire consiste en
+      une composante de ce système qui est l'élaboration d'un langage spécifique
+      au domaine de modélisation permettant d'interroger le système sur des
+      informations du système de modélisation actuel (qui, quoi, où, quand). Le
+      travail à faire consiste donc à déterminer en premier lieu la méthode de
+      stockage des données du système de modélisation actuel, pour ensuite
+      définir un langage pour interroger le système de contrôle de version
+      permettant d'accéder à ces données.
+    </p>
 
-  <h2>A - Énoncé du projet</h2>
-  <p>
-    Le projet s'intitule
-    <i>Système de contrôle de version (VCS) pour les unités d'un modèle</i>.
-    L'idée est de tenter d'appliquer les concepts de contrôle de version pour
-    tenir compte de la sémantique présente durant la modélisation. Puisque c'est
-    une tâche assez immense, le travail que j'aurais à faire consiste en une
-    composante de ce système qui est l'élaboration d'un langage spécifique au
-    domaine de modélisation permettant d'interroger le système sur des
-    informations du système de modélisation actuel (qui, quoi, où, quand). Le
-    travail à faire consiste donc à déterminer en premier lieu la méthode de
-    stockage des données du système de modélisation actuel, pour ensuite définir
-    un langage pour interroger le système de contrôle de version permettant
-    d'accéder à ces données.
-  </p>
+    <h2>B - Description détaillée</h2>
+    <p>
+      Le projet s'intitule
+      <i>Système de contrôle de versions (VCS) des modèles</i>. On s'intéresse
+      aux caractéristiques suivantes:
+      <ul>
+        <li>
+          Créer un dépot de versions de modèles à l'aide d'une base de donnée de
+          graphes Neo4J
+        </li>
+        <li>
+          Paramétrer l'unité versionnable
+        </li>
+        <li>
+          On doit pouvoir versionner des modèles, langages, transformations,
+          code, etc...
+        </li>
+        <li>
+          Définir une DSL de requêtes pour répondre aux questions du type:
+          <i>qui, quand, quoi, où</i>
+        </li>
+        <li>
+          Générer du <code>Cypher</code> à partir de cette DSL
+        </li>
+        <li>
+          Présenter les résultats des requêtes
+        </li>
+      </ul>
+      Ce projet se concentre davantage sur les trois derniers points. Les points
+      qui précèdent sont nécessaires d'être abordé à un certain degré pour
+      pouvoir se concentrer sur les trois derniers points. Des outils tel
+      que <code>Neo4J Browser</code> et <code>Neo4J Desktop</code> seront
+      nécessaire pour la création d'un dépot de versions de modèles et la
+      présentation des résultats à l'aide d'une requête. Le
+      <i>Eclipse Modeling Framework</i> (EMF) ainsi que certains des plug-ins
+      qui s'y trouve seront essentiels pour l'élaboration du métamodèle des
+      unités versionnables ainsi que de la conception de la DSL et sa
+      transformation en du code <code>Cypher</code>.
+    </p>
 
-  <h2>B - Description détaillée</h2>
-  <p>
-    Le projet s'intitule
-    <i>Système de contrôle de versions (VCS) des modèles</i>. On s'intéresse aux
-    caractéristiques suivantes:
-    <ul>
-      <li>
-        Créer un dépot de versions de modèles à l'aide d'une base de donnée de
-        graphes Neo4J
-      </li>
-      <li>
-        Paramétrer l'unité versionnable
-      </li>
-      <li>
-        On doit pouvoir versionner des modèles, langages, transformations, code,
-        etc...
-      </li>
-      <li>
-        Définir une DSL de requêtes pour répondre aux questions du type:
-        <i>qui, quand, quoi, où</i>
-      </li>
-      <li>
-        Générer du <code>Cypher</code> à partir de cette DSL
-      </li>
-      <li>
-        Présenter les résultats des requêtes
-      </li>
-    </ul>
-    Ce projet se concentre davantage sur les trois derniers points. Les points
-    qui précèdent sont nécessaires d'être abordé à un certain degré pour pouvoir
-    se concentrer sur les trois derniers points. Des outils tel que <code>Neo4J
-    Browser</code> et <code>Neo4J Desktop</code> seront nécessaire pour la
-    création d'un dépot de versions de modèles et la présentation des résultats
-    à l'aide d'une requête. Le <i>Eclipse Modeling Framework</i> (EMF) ainsi que
-    certains des plug-ins qui s'y trouve seront essentiels pour l'élaboration du
-    métamodèle des unités versionnables ainsi que de la conception de la DSL et
-    sa transformation en du code <code>Cypher</code>.
-  </p>
+    <h2>C - Plan de développement</h2>
+    <p>
+      Ce projet a commencé dès que je l'ai soumis après avoir discuté avec
+      M. Eugene Syriani. Ce projet devrait idéalement se terminer avant le 18
+      décembre. Je prévois tenté de contribuer à compléter ce projet à tous les
+      2-3 semaines et à un rythme dépendant également des concepts vu dans le
+      cours IFT-6253 qui présente plusieurs des outils qui sont nécessaires pour
+      compléter le projet.
+    </p>
 
-  <h2>C - Plan de développement</h2>
-  <p>
-    Ce projet a commencé dès que je l'ai soumis après avoir discuté avec
-    M. Eugene Syriani. Ce projet devrait idéalement se terminer avant le 18
-    décembre. Je prévois tenté de contribuer à compléter ce projet à tous les
-    2-3 semaines et à un rythme dépendant également des concepts vu dans le
-    cours IFT-6253 qui présente plusieurs des outils qui sont nécessaires pour
-    compléter le projet
-  </p>
-
-  <h2>D - Rapports d'avancement</h2>
-  <h3>Période 09/18 - 10/07</h3>
-  <p>
-    Durant cette période, j'ai eu la chance de pouvoir me familiariser avec
-    certains des concepts contournant le développement d'un langage spécifique
-    au domaine (DSL) à l'aide du Eclipse Modeling Framework ainsi que
-    de <code>Xtext</code> pour ce qui est de la syntaxe concrète d'un
-    langage. Plusieurs des articles scientifiques du cours de IFT-6253 m'ont
-    permis de mieux comprendre la théorie entourant ces concepts. J'ai également
-    préparé une liste de certains articles scientifiques plus spécifique à mon
-    projet que je voudrais prendre le temps de lire tel qu'au sujet de Xtend et
-    Xbase, Neo4J et Cipher, AMOR, etc...
-  </p>
-  <h3>Période 10/07 - 10/23</h3>
-  <p>
-    Durant cette période, j'ai commencé à m'attaquer au problème. J'ai
-    installé <code>Neo4J Desktop</code> sur ma machine et j'ai expérimenté un
-    peu avec les requêtes <code>Cypher</code> en ayant recours au manuel de
-    documentation de Neo4J et autres ressources utiles. Par la suite, je me suis
-    créé un métamodèle sur EMF décrivant de façon abstraite la structure d'un
-    projet versionnable. La version que j'ai présentement n'est pas finale et
-    risque de changer mais elle m'a suffit pour commencer à décrire la grammaire
-    à l'aide de <code>Xtext</code> de ma DSL qui sera ensuite transformée en des
-    requêtes <code>Cypher</code>. Je passerais le temps qui vient à améliorer
-    mon métamodèle et arriver à une conception satisfaisante de la syntaxe de la
-    DSL.
-  </p>
-  <h3>Période 10/23 - 11/07</h3>
-  <p>
-    Durant cette période, j'ai réitérer sur le métamodèle d'un projet
-    versionnable et d'une requête sur ce projet. De plus, j'ai pu faire un
-    travail et lire des articles au sujet de la transformation de modèles ce qui
-    devrait être la prochaine étape de ce travail après avoir établi le
-    métamodèle final.
-  </p>
-  <h3>Période 11/07 - 11/14</h3>
-  <p>
-    Durant cette période, j'ai eu une rencontre avec M. Eugene Syriani ce qui
-    m'a aidé dans la révision des métamodèles pour un projet versionnable et sur
-    les requêtes sur un tel projet. J'ai également pu élaborer une grammaire
-    <code>Xtext</code> satisfaisante pour le langage de requêtes. Après que je
-    découvre comment établir la connection entre mes deux métamodèles, je
-    pourrais ensuite travailler sur la génération du code <code>Cypher</code>.
-  </p>
-  <h3>Période 11/14 - 11/20</h3>
-  <p>
-    Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani et
-    j'ai pu mieux comprendre certains des points que ma solution devait
-    implémenter. J'ai légèrement modifé le métamodèle d'un projet versionnable
-    ainsi que le métamodèle de mon langage de requêtes. J'ai également amené un
-    ajustement à la grammaire <code>Xtext</code> pour prendre en compte des
-    requêtes pouvant faire référence à des éléments à l'intérieur d'un modèle.
-    Initialement j'avais conçu un métamodèle qui représenterait un extrait du
-    langage <code>Cypher</code> de sorte à ensuite entreprendre une
-    transformation modèle-à-modèle de mon langage de requête vers le
-    langage <code>Cypher</code> (un peu comme la stratégie entreprise dans
-    l'article Mogwaï). Cependant, après réflexion, il m'a semblé plus approprié
-    d'entreprendre une transformation modèle-à-texte directement à partir de la
-    requête rédigée dans mon langage. C'est donc ce que j'ai rédigée durant
-    cette période. Cette transformation semble bien généré le
-    code <code>Cypher</code> que je pourrais ensuite roulée sur une base de
-    donnée Neo4J qui contiendra la structure d'un projet versionnable conformant
-    au métamodèle d'un projet versionnable tel que décrit. Pour l'instant, le
-    langage de requête est en mesure de permettre à l'usager de faire référence
-    à des éléments à l'intérieur d'un modèle sauf qu'il ne présente pas de
-    candidats pour l'autocomplétion, l'usager devra savoir a priori le contenu
-    de ces modèles. Pour le temps qui reste, je tenterais de créer un exemple de
-    base de données dans Neo4J sur lequel je pourrais rouler les requêtes
-    générées à partir de la transformation.
-  </p>
-  <h3>Période 11/20 - 11-28</h3>
-  <p>
-    Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani
-    pour discuter du progrès jusqu'à présent. Après notre rencontre, j'ai
-    compris que l'avancement s'en allait bien et il n'y avait que quelques
-    points à compléter pour que le projet soit complet. En premier lieu,
-    M. Eugene Syriani m'a décrit le <i>Neo Modeling Framework</i> (NMF) de sorte
-    à pouvoir utiliser le NMF Loader pour créer une base de données Neo4J
-    initiale à partir d'une description d'un projet versionnable. En second
-    lieu, il m'a invité à améliorer certains éléments de la syntaxe concrète du
-    langage MQL. En troisième lieu, il m'a suggéré d'automatiser tout le
-    processus. Pour le premier point, j'ai exploré les outils NMF et j'ai plutôt
-    préféré décrire ma propre transformation pour gérer la création d'une base
-    de donnée Neo4J. Cela est dû au fait que, après avoir plus lu sur les outils
-    NMF, ces outils permettent non seulement le chargement d'un
-    modèle <code>Ecore</code> mais également la manipulation de celui-ci. Il m'a
-    donc semblé plus juste de continuer avec mon approche n'utilisant pas cet
-    outil, et de suggérer, comme travail futur, d'intégrer le plus possible avec
-    NMF et de tenir ensuite une comparaison des performances. Pour le second
-    point, j'ai tenté d'améliorer le langage en ajoutant du sucre syntaxique à
-    celui-ci. Pour le troisième point, l'automatisation a été complétée à l'aide
-    d'un <i>Ant Workflow</i>. Après certaines révisions de mon implémentation,
-    j'ai ensuite conçu une première version de ma présentation orale.
-  </p>
-
-  <h2>E - Rapport final</h2>
-  <p>
-    À venir...
-  </p>
-</body>
+    <h2>D - Rapports d'avancement</h2>
+    <h3>Période 09/18 - 10/07</h3>
+    <p>
+      Durant cette période, j'ai eu la chance de pouvoir me familiariser avec
+      certains des concepts contournant le développement d'un langage spécifique
+      au domaine (DSL) à l'aide du Eclipse Modeling Framework ainsi que
+      de <code>Xtext</code> pour ce qui est de la syntaxe concrète d'un
+      langage. Plusieurs des articles scientifiques du cours de IFT-6253 m'ont
+      permis de mieux comprendre la théorie entourant ces concepts. J'ai
+      également préparé une liste de certains articles scientifiques plus
+      spécifique à mon projet que je voudrais prendre le temps de lire tel qu'au
+      sujet de Xtend et Xbase, Neo4J et Cipher, AMOR, etc...
+    </p>
+    <h3>Période 10/07 - 10/23</h3>
+    <p>
+      Durant cette période, j'ai commencé à m'attaquer au problème. J'ai
+      installé <code>Neo4J Desktop</code> sur ma machine et j'ai expérimenté un
+      peu avec les requêtes <code>Cypher</code> en ayant recours au manuel de
+      documentation de Neo4J et autres ressources utiles. Par la suite, je me
+      suis créé un métamodèle sur EMF décrivant de façon abstraite la structure
+      d'un projet versionnable. La version que j'ai présentement n'est pas
+      finale et risque de changer mais elle m'a suffit pour commencer à décrire
+      la grammaire à l'aide de <code>Xtext</code> de ma DSL qui sera ensuite
+      transformée en des requêtes <code>Cypher</code>. Je passerais le temps qui
+      vient à améliorer mon métamodèle et arriver à une conception satisfaisante
+      de la syntaxe de la DSL.
+    </p>
+    <h3>Période 10/23 - 11/07</h3>
+    <p>
+      Durant cette période, j'ai réitérer sur le métamodèle d'un projet
+      versionnable et d'une requête sur ce projet. De plus, j'ai pu faire un
+      travail et lire des articles au sujet de la transformation de modèles ce
+      qui devrait être la prochaine étape de ce travail après avoir établi le
+      métamodèle final.
+    </p>
+    <h3>Période 11/07 - 11/14</h3>
+    <p>
+      Durant cette période, j'ai eu une rencontre avec M. Eugene Syriani ce qui
+      m'a aidé dans la révision des métamodèles pour un projet versionnable et
+      sur les requêtes sur un tel projet. J'ai également pu élaborer une
+      grammaire <code>Xtext</code> satisfaisante pour le langage de
+      requêtes. Après que je découvre comment établir la connection entre mes
+      deux métamodèles, je pourrais ensuite travailler sur la génération du
+      code <code>Cypher</code>.
+    </p>
+    <h3>Période 11/14 - 11/20</h3>
+    <p>
+      Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani
+      et j'ai pu mieux comprendre certains des points que ma solution devait
+      implémenter. J'ai légèrement modifé le métamodèle d'un projet versionnable
+      ainsi que le métamodèle de mon langage de requêtes. J'ai également amené
+      un ajustement à la grammaire <code>Xtext</code> pour prendre en compte des
+      requêtes pouvant faire référence à des éléments à l'intérieur d'un modèle.
+      Initialement j'avais conçu un métamodèle qui représenterait un extrait du
+      langage <code>Cypher</code> de sorte à ensuite entreprendre une
+      transformation modèle-à-modèle de mon langage de requête vers le
+      langage <code>Cypher</code> (un peu comme la stratégie entreprise dans
+      l'article Mogwaï). Cependant, après réflexion, il m'a semblé plus
+      approprié d'entreprendre une transformation modèle-à-texte directement à
+      partir de la requête rédigée dans mon langage. C'est donc ce que j'ai
+      rédigée durant cette période. Cette transformation semble bien généré le
+      code <code>Cypher</code> que je pourrais ensuite roulée sur une base de
+      donnée Neo4J qui contiendra la structure d'un projet versionnable
+      conformant au métamodèle d'un projet versionnable tel que décrit. Pour
+      l'instant, le langage de requête est en mesure de permettre à l'usager de
+      faire référence à des éléments à l'intérieur d'un modèle sauf qu'il ne
+      présente pas de candidats pour l'autocomplétion, l'usager devra savoir a
+      priori le contenu de ces modèles. Pour le temps qui reste, je tenterais de
+      créer un exemple de base de données dans Neo4J sur lequel je pourrais
+      rouler les requêtes générées à partir de la transformation.
+    </p>
+    <h3>Période 11/20 - 11-28</h3>
+    <p>
+      Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani
+      pour discuter du progrès jusqu'à présent. Après notre rencontre, j'ai
+      compris que l'avancement s'en allait bien et il n'y avait que quelques
+      points à compléter pour que le projet soit complet. En premier lieu,
+      M. Eugene Syriani m'a décrit le <i>Neo Modeling Framework</i> (NMF) de
+      sorte à pouvoir utiliser le NMF Loader pour créer une base de données
+      Neo4J initiale à partir d'une description d'un projet versionnable. En
+      second lieu, il m'a invité à améliorer certains éléments de la syntaxe
+      concrète du langage MQL. En troisième lieu, il m'a suggéré d'automatiser
+      tout le processus. Pour le premier point, j'ai exploré les outils NMF et
+      j'ai plutôt préféré décrire ma propre transformation pour gérer la
+      création d'une base de donnée Neo4J. Cela est dû au fait que, après avoir
+      plus lu sur les outils NMF, ces outils permettent non seulement le
+      chargement d'un modèle <code>Ecore</code> mais également la manipulation
+      de celui-ci. Il m'a donc semblé plus juste de continuer avec mon approche
+      n'utilisant pas cet outil, et de suggérer, comme travail futur, d'intégrer
+      le plus possible avec NMF et de tenir ensuite une comparaison des
+      performances. Pour le second point, j'ai tenté d'améliorer le langage en
+      ajoutant du sucre syntaxique à celui-ci. Pour le troisième point,
+      l'automatisation a été complétée à l'aide d'un <i>Ant Workflow</i>. Après
+      certaines révisions de mon implémentation, j'ai ensuite conçu une première
+      version de ma présentation orale.
+    </p>
+    <h3>Période 11/28 - 12-11</h3>
+    <p>
+      Durant cette période, j'ai amené les changements discuté dans la période
+      précédente. J'ai également tenté d'améliorer la fonction d'autocomplétion
+      de MQL en tentant de rajouter la possibilité de faire référence aux
+      éléments du métamodèle sous le projet versionnable. M. Eugene Syriani
+      m'avait montré un document de référence Xtext expliquant le
+      processus. Cependant, en suivant les instructions, je ne suis pas arrivé à
+      une solution qui fonctionne. J'ai commencé à explorer des pistes en ligne
+      pour me débloquer, mais je n'ai rien trouvé dans le temps que je m'était
+      alloué cette période. Pour le temps restant, je planifie terminer la
+      préparation de ma présentation et l'écriture du rapport final.
+    </p>
 
 </html>
