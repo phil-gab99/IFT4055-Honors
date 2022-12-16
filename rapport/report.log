@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/GNU Guix) (preloaded format=pdflatex 2022.5.9)  11 DEC 2022 01:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/GNU Guix) (preloaded format=pdflatex 2022.5.9)  11 DEC 2022 20:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -135,6 +135,32 @@ Package: iftex 2020/03/06 v1.0d TeX engine tests
 \Gm@dimlist=\toks21
 )
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
+-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
+
+(/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
+-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+
+(/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
+-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen156
+\captionmargin@=\dimen157
+\captionwidth=\dimen158
+\caption@tempdima=\dimen159
+\caption@indent=\dimen160
+\caption@parindent=\dimen161
+\caption@hangindent=\dimen162
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count268
+\c@continuedfloat=\count269
+)
+\c@subfigure=\count270
+\c@subtable=\count271
+)
+(/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -156,29 +182,29 @@ Package graphics Info: Driver file: pdftex.def on input line 105.
 -dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen156
-\Gin@req@width=\dimen157
+\Gin@req@height=\dimen163
+\Gin@req@width=\dimen164
 )
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/latex/listings/listings.sty
-\lst@mode=\count268
+\lst@mode=\count272
 \lst@gtempboxa=\box49
 \lst@token=\toks22
-\lst@length=\count269
-\lst@currlwidth=\dimen158
-\lst@column=\count270
-\lst@pos=\count271
-\lst@lostspace=\dimen159
-\lst@width=\dimen160
-\lst@newlines=\count272
-\lst@lineno=\count273
-\lst@maxwidth=\dimen161
+\lst@length=\count273
+\lst@currlwidth=\dimen165
+\lst@column=\count274
+\lst@pos=\count275
+\lst@lostspace=\dimen166
+\lst@width=\dimen167
+\lst@newlines=\count276
+\lst@lineno=\count277
+\lst@maxwidth=\dimen168
 
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count274
-\lst@skipnumbers=\count275
+\c@lstnumber=\count278
+\lst@skipnumbers=\count279
 \lst@framebox=\box50
 )
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
@@ -200,25 +226,25 @@ Package color Info: Driver file: pdftex.def on input line 147.
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count276
+\l__color_backend_stack_int=\count280
 \l__pdf_internal_box=\box51
 ) (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -254,20 +280,23 @@ LaTeX Font Info:    ... okay on input line 67.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
 
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count277
-\scratchdimen=\dimen162
+\scratchcounter=\count281
+\scratchdimen=\dimen169
 \scratchbox=\box52
-\nofMPsegments=\count278
-\nofMParguments=\count279
+\nofMPsegments=\count282
+\nofMParguments=\count283
 \everyMPshowfont=\toks23
-\MPscratchCnt=\count280
-\MPscratchDim=\dimen163
-\MPnumerator=\count281
-\makeMPintoPDFobject=\count282
+\MPscratchCnt=\count284
+\MPscratchDim=\dimen170
+\MPnumerator=\count285
+\makeMPintoPDFobject=\count286
 \everyMPtoPDFconversion=\toks24
 )
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
@@ -281,15 +310,15 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count283
-LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
+\c@lstlisting=\count287
+LaTeX Font Info:    Trying to load font information for U+msa on input line 70.
 
 
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
 -dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 70.
 
 
 (/gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf
@@ -302,42 +331,70 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <./img//repomm.png, id=9, 644.4075pt x 384.2355pt>
 File: ./img//repomm.png Graphic file (type png)
 <use ./img//repomm.png>
-Package pdftex.def Info: ./img//repomm.png  used on input line 122.
+Package pdftex.def Info: ./img//repomm.png  used on input line 123.
 (pdftex.def)             Requested size: 505.89pt x 301.65485pt.
 <./img//mqlmm.png, id=11, 205.36725pt x 205.9695pt>
 File: ./img//mqlmm.png Graphic file (type png)
 <use ./img//mqlmm.png>
-Package pdftex.def Info: ./img//mqlmm.png  used on input line 141.
+Package pdftex.def Info: ./img//mqlmm.png  used on input line 142.
 (pdftex.def)             Requested size: 202.3529pt x 202.95184pt.
 
-[2] [3 <./img//repomm.png> <./img//mqlmm.png>] (./report.bbl) [4] (./report.aux
-)
+[2] [3 <./img//repomm.png> <./img//mqlmm.png>] [4]
+<./img//wfoutline.png, id=26, 139.722pt x 207.77625pt>
+File: ./img//wfoutline.png Graphic file (type png)
+<use ./img//wfoutline.png>
+Package pdftex.def Info: ./img//wfoutline.png  used on input line 218.
+(pdftex.def)             Requested size: 151.76854pt x 225.69485pt.
+ [5 <./img//wfoutline.png>]
+<./img//drmm.png, id=31, 172.2435pt x 218.0145pt>
+File: ./img//drmm.png Graphic file (type png)
+<use ./img//drmm.png>
+Package pdftex.def Info: ./img//drmm.png  used on input line 271.
+(pdftex.def)             Requested size: 101.17645pt x 128.06189pt.
+<./img//repom.png, id=32, 170.43675pt x 299.31825pt>
+File: ./img//repom.png Graphic file (type png)
+<use ./img//repom.png>
+Package pdftex.def Info: ./img//repom.png  used on input line 277.
+(pdftex.def)             Requested size: 101.17645pt x 177.6878pt.
+<./img//res1.png, id=33, 729.927pt x 28.908pt>
+File: ./img//res1.png Graphic file (type png)
+<use ./img//res1.png>
+Package pdftex.def Info: ./img//res1.png  used on input line 284.
+(pdftex.def)             Requested size: 505.89pt x 20.03563pt.
+<./img//res2.png, id=34, 185.493pt x 78.89474pt>
+File: ./img//res2.png Graphic file (type png)
+<use ./img//res2.png>
+Package pdftex.def Info: ./img//res2.png  used on input line 309.
+(pdftex.def)             Requested size: 151.76854pt x 64.55324pt.
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
- ) 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6 <./img//drmm.png> <./img//repom.png> <./img//res1.png>] (./report.bbl
+[7 <./img//res2.png>]) [8] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 4551 strings out of 478994
- 64594 string characters out of 5833535
- 405985 words of memory out of 5000000
- 22008 multiletter control sequences out of 15000+600000
- 408530 words of font info for 47 fonts, out of 8000000 for 9000
+ 5938 strings out of 478994
+ 91101 string characters out of 5833535
+ 500328 words of memory out of 5000000
+ 23374 multiletter control sequences out of 15000+600000
+ 412877 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,6n,74p,238b,1181s stack positions out of 5000i,500n,10000p,200000b,80000s
-</gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></gnu/store/hnsjynry65sj4pdwg
-10hdalrab1881m8-texlive-texmf-20210325/share/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr12.pfb></gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20
-210325/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></gnu/store/hn
-sjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmti12.pfb></gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-
-texlive-texmf-20210325/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
-fb></gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (4 pages, 119975 bytes).
+ 69i,8n,77p,301b,1179s stack positions out of 5000i,500n,10000p,200000b,80000s
+</gnu/store/hnsjynry65sj4pdwg10hdalr
+ab1881m8-texlive-texmf-20210325/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmbx12.pfb></gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></gnu/store/hnsjynry
+65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr17.pfb></gnu/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive
+-texmf-20210325/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></gn
+u/store/hnsjynry65sj4pdwg10hdalrab1881m8-texlive-texmf-20210325/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></gnu/store/hnsjynry65sj4pdwg10hdal
+rab1881m8-texlive-texmf-20210325/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmtt12.pfb>
+Output written on report.pdf (8 pages, 162908 bytes).
 PDF statistics:
- 46 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
+ 70 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

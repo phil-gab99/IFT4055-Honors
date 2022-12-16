@@ -3,6 +3,7 @@
 \usepackage{amsmath, amssymb}
 \usepackage[margin=0.75in]{geometry}
 
+\usepackage{subcaption}
 \usepackage{graphicx}
 \graphicspath{{./img/}}
 
@@ -59,8 +60,8 @@
 \renewcommand{\refname}{Références}
 
 \title{\textbf{IFT4055 - Projet Honor} \\ MQL à Cypher -- Un Framework pour
-  Traduire un langage de requêtes spécifique au domaine pour interroger un
-  projet versionnable en des expressions Cypher}
+  Traduire un Langage de Requêtes Spécifique au Domaine pour Interroger un
+  Projet Versionnable en des Expressions Cypher}
 \author{Philippe Gabriel - 20120600}
 \date{18 décembre 2022}
 
@@ -177,13 +178,192 @@ MQL.
 
 \subsection*{Transformations Modèle-à-texte}
 
-À partir d'un modèle d'un projet versionnable conforme à son métamodèle.
+À partir d'un modèle d'un projet versionnable conforme à son métamodèle, il est
+ensuite possible de l'utiliser comme entrée à une transformation modèle-à-texte
+qui produit une requête Cypher correspondante au modèle donné. Dans le cas d'un
+projet versionnable, une requête pour créer une base de données de graphes est
+générée à partir d'un modèle de projet versionnable.
+
+À partir d'un modèle d'une expression MQL conforme à son métamodèle, une autre
+transformation modèle-à-texte se sert de ce modèle comme entrée pour générer la
+requête Cypher correspondante pour interroger la base de données existante du
+projet versionnable. En prenant comme exemple la requête décrite au Listing
+\ref{lst:mqlsyn}, après que le parseur Xtend aie généré le modèle MQL conforme
+au métamodèle MQL, lorsque ce modèle est pris comme entrée à la transformation
+modèle-à-texte, on obtient la requête Cypher décrite au Listing
+\ref{lst:mqlegl}.
+
+\begin{lstlisting}[style=cypher, label=lst:mqlegl,caption=Cypher générée]
+  MATCH (b1:Branch)-[h1:head]->(c1:Commit)
+  WHERE b1.branchName = "main" AND b1.active = "true"
+  RETURN c1.author;
+  MATCH (b2:Branch)-[p1:head]->(c2:Commit)
+  WHERE b2.branchName = "b1"
+  RETURN c2.message;
+  MATCH (c3:Commit)-[mm1:modifiedModels]->(ms1:ModelSnapshot)
+  WHERE c3.timestamp < "2022-09-04" AND "MyDomainSpecificObject.x = 19" IN ms1.diffCreated
+  RETURN c3.timestamp;
+\end{lstlisting}
 
 \subsection*{Automatisation}
 
+Afin d'automatiser le processus de création de base de données à partir d'un
+projet versionnable et de traduction de la requête MQL pour ensuite afficher les
+résultats de la requête, un Ant Workflow a été implémenté décrivant les étapes
+du framework. La Figure \ref{fig:wfoutline} décrit les différentes étapes de
+celui-ci.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.3\textwidth]{wfoutline.png}
+  \caption{Outline du Workflow}
+  \label{fig:wfoutline}
+\end{figure}
+
+Il est possible de configurer certaines propriétés avant de démarrer le
+workflow. La propriété \texttt{skipRepo} agit comme booléen décrivant si l'on
+désire ne pas créer la base de donnée (dans le cas où elle a déjà été créée).
+Les propriétés \texttt{repo} et \texttt{query} réfère aux noms de fichiers des
+modèles du projet versionnable et de la requête qui seront utilisées comme
+entrée aux transformations modèle-à-texte. Les propriétés \texttt{protocol},
+\texttt{host}, \texttt{port}, \texttt{uname}, et \texttt{passwd} représentent
+les valeurs pour se connecter à la base de donnée de graphes où l'on veut
+entreprendre nos requêtes. La propriété \texttt{cypherBin} représente le chemin
+de l'exécutable \texttt{Cypher} qui permettra de rouler des requêtes dans la
+base de données. Le workflow est constitué de tâches à effectuer. Les tâches
+\texttt{loadRepo} et \texttt{loadQuery} ne font que simplement charger le modèle
+du projet versionnable et du modèle de la requête MQL respectivement. Les tâches
+\texttt{storeRepo} et \texttt{storeQuery} appliquent la transformation
+modèle-à-texte sur les modèles chargés. La tâche \texttt{createRepo} initialise
+la base de donnée à partir de la requête Cypher généré du modèle de projet
+versionnable. La tâche \texttt{runQuery} exécute la requête Cypher générée à
+partir du modèle MQL et affiche les résultats.
+
 \section*{Résultats obtenus}
 
+Pour décrire les résultats obtenus, je vais présenter un exemple d'utilisation.
+Considérant en premier lieu, le métamodèle d'une salle à manger. La Figure
+\ref{fig:drmm} illustre le métamodèle en question. Il s'agit d'un simple
+métamodèle décrivant la relation entre des tables et des chaises dans une
+salle. Nous supposerons que l'expert du domaine conçoit un projet de salle à
+manger. 
+
+\begin{lstlisting}[style=mql,label=lst:mqldr1, caption=Exemple d'expression MQL]
+  WHAT head {
+    branchName = "main"
+  }?
+\end{lstlisting}
+
+La figure \ref{fig:repom} décrit l'état du projet versionnable de notre expert
+du domaine sous forme de modèle conformant au métamodèle de projet
+versionnable. Celui-ci s'agit d'un projet assez simple contenant 3 modèles de
+salle à manger, 2 branches et 6 commits au total. On a par la suite comme
+exemple de requête celle présentée au Listing \ref{lst:mqldr1}. On peut
+maintenant exécuter le workflow qui commence par génèrer les requêtes Cypher
+appropriées, initalise la base de donnée, et exécute la requête Cypher obtenue
+de la transformation modèle-à-texte du modèle MQL pour obtenir les résultats de
+la Figure \ref{fig:res1}.
+
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.4\linewidth]{drmm.png}
+    \captionof{figure}{Métamodèle d'une salle à manger}
+    \label{fig:drmm}
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.4\linewidth]{repom.png}
+    \captionof{figure}{Modèle de Projet Versionnable}
+    \label{fig:repom}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[ht!]
+  \includegraphics[width=\textwidth]{res1.png}
+  \caption{Résultat de la première requête}
+  \label{fig:res1}
+\end{figure}
+
+Considérant maintenant la requête au Listing \ref{lst:mqldr2}. Puisque nous
+avions déjà généré la base de données de graphes de notre projet versionnable,
+on s'assure de mettre la propriété \texttt{skipRepo} à \texttt{true} avant de
+démarrer le workflow.
+
+\begin{lstlisting}[style=mql,label=lst:mqldr2,
+  caption=MQL Expression specific to Dining Room domain]
+  WHERE model {
+    owner = "Philippe"
+  },
+  WHEN changed [
+    "MyTable.x = 3"
+  ]?
+\end{lstlisting}
+
+En exécutant le workflow après avoir bien définit les valeurs des propriétés, on
+obtient le résultat illustré à la figure \ref{fig:res2}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{res2.png}
+  \caption{Résultat de la seconde requête}
+  \label{fig:res2}
+\end{figure}
+
 \section*{Améliorations futures}
+
+En conclusion, j'ai présenté un langage de requête spécifique au domaine de
+projets versionnables pour interroger un projet versionnable sous un domaine
+spécifique. J'ai également présenté un framework décrivant comment les
+différentes composantes du projet interagissent entre elles. Il a été nécessaire
+de définir les unités versionnables d'un projet à l'aide du métamodèle d'un
+projet versionnable et de définir les transformations modèle-à-texte nécessaire
+pour générer les requêtes Cypher pour interagir avec la base de données Neo4j.
+
+En tant que travaux futurs, je prévoie ajouter un meilleur support pour la
+fonctionnalité d'autocomplétion offerte par Xtext au moyen d'être capable
+d'accéder au contenu d'un modèle existant. Un tel ajout ferait en sorte que les
+paramètres \texttt{diff} au sein d'une expression MQL ne sont plus fournis en
+tant chaînes de caractères littérales mais des références aux éléments existants
+du modèle spécifique au domaine dans le projet. Il permettrait également la
+validation de requêtes impliquant des paramètres \texttt{diff}.
+
+De plus, je prévoie améliorer l'expressivité des requêtes MQL. À l'heure
+actuelle, des requêtes de base peuvent être effectuées en utilisant les
+différents opérateurs fournis. Il serait intéressant de permettre des requêtes
+plus complexes, basées sur une séquence de commits par exemple, ou fournissant
+des analyses statistiques.
+
+Présentement, l'outil de workflow n'est disponible que dans Eclipse. Le
+possibilité d'invoquer l'outil en tant qu'utilitaire de ligne de commande, ou un
+fichier jar, ou même un un plugin Eclipse serait préféré pour donner
+l'opportunité qu'il soit intégré aux flux de travail existants. Pour ce faire,
+il faudrait regrouper les composantes et y inclure les dépendances appropriées
+pour l'exécution indépendante de EMF.
+
+La mise en oeuvre d'un parseur de projet versionnable est une idée intéressante
+dans le contexte de l'inclusion d'une telle une étape dans le
+framework. Considérant un projet versionnable existant spécifique au domaine,
+qu'il soit géré par des VCS orientés ligne tels que git ou non, il serait
+souhaitable de générer le modèle de projet versionnable correspondant conforme
+au métamodèle de projet versionnable.
+
+Le Neo Modeling Framework (NMF) \cite{nmf} est un ensemble d'outils open-source
+conçu pour manipuler des ensembles de données ultra-volumineux dans la base de
+données Neo4j. Il comprend un chargeur qui a la capacité de charger un modèle
+Ecore et de produire une base de données de graphes. Il fournit également un
+générateur qui peut générer une API spécifique au domaine pour modifier un
+modèle spécifique. Intégrer le workflow lors de l'utilisation du MQL avec NMF
+pourrait fournir divers atouts. L'intégration avec NMF et la comparaison avec le
+flux de travail actuel est une idée future qui pourrait aider à mieux orienter
+les idées de ce projet.
+
+L'intégration avec DSMCompare \cite{dsmcompare} est un autre atout souhaitable à
+considérer. Par exemple, il pourrait être possible d'interroger les différences
+sémantiques entre les modèles d'une expression MQL et récupérer le
+\texttt{diff\_model} à partir de DSMCompare sur lequel plus de requêtes peuvent
+être exprimées.
 
 \bibliographystyle{plain} 
 \bibliography{refs}

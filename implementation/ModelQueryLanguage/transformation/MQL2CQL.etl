@@ -1,0 +1,133 @@
+rule queryFile2Query
+transform m : MM1!QueryFile
+to c : MM2!CypherQueries {
+    c.queries ::= m.queries;
+}
+
+rule modelQuery2Query
+transform m : MM1!ModelQuery
+to c : MM2!Query {
+    // Match clause
+    c.match.leftNode.label = getLeftLabel(m.subject);
+    c.match.leftNode.type = getLeftType(m.subject);
+    c.match.relation.label = getRelLabel(m.subject);
+    c.match.relation.type = getRelType(m.subject);
+    c.match.rightNode.label = getRightLabel(m.subject);
+    c.match.rightNode.type = getRightType(m.subject);
+    
+    // Where clause
+    c.conditions = getConditions(m.parameters);
+    
+    // Return clause
+    c.result = getResult(m.operator, c.match.rightNode.type);
+}
+
+function Query getLeftLabel(subject : String): String {
+    switch (subject) {
+        case "head" : return "b";
+        case "parent" : return "b";
+        case "next" : return "c";
+        case "from" : return "c";
+        case "to" : return "c";
+        case "model" : return "m";
+    }
+}
+
+function Query getLeftType(subject : String): String {
+    switch (subject) {
+        case "head" : return "Branch";
+        case "parent" : return "Branch";
+        case "next" : return "Commit";
+        case "from" : return "Commit";
+        case "to" : return "Commit";
+        case "model" : return "Model";
+    }
+}
+
+function Query getRelLabel(subject : String): String {
+    switch (subject) {
+        case "head" : return "h";
+        case "parent" : return "p";
+        case "next" : return "n";
+        case "from" : return "f";
+        case "to" : return "t";
+        case "model" : return "c";
+    }
+}
+
+function Query getRelType(subject : String): String {
+    switch (subject) {
+        case "head" : return "head";
+        case "parent" : return "parent";
+        case "next" : return "next";
+        case "from" : return "from";
+        case "to" : return "to";
+        case "model" : return "current";
+    }
+}
+
+function Query getRightLabel(subject : String): String {
+    switch (subject) {
+        case "head" : return "c";
+        case "parent" : return "c";
+        case "next" : return "c";
+        case "from" : return "c";
+        case "to" : return "c";
+        case "model" : return "ms";
+    }
+}
+
+function Query getRightType(subject : String): String {
+    switch (subject) {
+        case "head" : return "Commit";
+        case "parent" : return "Commit";
+        case "next" : return "Commit";
+        case "from" : return "Commit";
+        case "to" : return "Commit";
+        case "model" : return "ModelSnapshot";
+    }
+}
+
+function Query getConditions(conds: Collection<String>): String {
+    var numConds: Integer = conds.size();
+    var currentCond: Integer = 0;
+    var clause: String = "";
+    for (cond in conds) {
+        if (currentCond == numConds - 1) {
+            clause += cond;
+        } else {
+            clause += cond + " AND ";
+        }
+        currentCond++;
+    }
+    return clause;
+}
+
+function Query getResult(operator: Operator, label: String): String {
+    switch(operator) {
+        case WHO : {
+            switch(label) {
+                case "Commit" : return "author";
+                case "ModelSnapshot" : return "owner";
+            }
+        }
+
+        case WHEN : {
+            switch(label) {
+                case "Commit" : return "timestamp";
+                case "ModelSnapshot" : return "creationDate";
+            }
+        }
+
+        case WHAT : {
+            return "self";
+        }
+
+        case WHERE : {
+            switch(label) {
+                case "Commit" : return "modifiedModels";
+                case "ModelSnapshot" : return "path";
+            }
+        }
+    }
+}

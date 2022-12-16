@@ -1,0 +1,104 @@
+CREATE
+[**]
+[* Repo node *]
+[**]
+([%= self.name %]:[%= self.type().name %] {name:"[%= self.name %]"})
+[**]
+[**]
+[**]
+[% for (modelFile in self.models) { %]
+[**]
+[* Model node *]
+[**]
+,([%= modelFile.name %]:[%= modelFile.type().name %] {
+    name: "[%= modelFile.name %]",
+    modelId: "[%= modelFile.modelId %]",
+    isDeleted: "[%= modelFile.isDeleted %]",
+    owner: "[%= modelFile.owner %]",
+    creationDate: "[%= modelFile.creationDate %]"
+})
+[* Repo -> Model *]
+,([%= self.name %])-[:models]->([%= modelFile.name %])
+[**]
+[* ModelSnapshot node *]
+[**]
+    [% for (modelSnapshot in modelFile.lifetime) { %]
+,([%= modelSnapshot.name %]:[%= modelSnapshot.type().name %] {
+    name: "[%= modelSnapshot.name %]",
+	path: "[%= modelSnapshot.path %]",
+	    [% var remDiffs: Integer = modelSnapshot.diffCreated.size(); %]
+	diffCreated: [
+	    [% for (diff in modelSnapshot.diffCreated) { %]
+        "[%= diff %]"[% if (remDiffs > 1) { %], [% } %]
+
+            [% remDiffs--; %]
+        [% } %]
+    ],
+	    [% remDiffs = modelSnapshot.diffDeleted.size(); %]
+	diffDeleted: [
+	    [% for (diff in modelSnapshot.diffDeleted) { %]
+        "[%= diff %]"[% if (remDiffs > 1) { %], [% } %]
+
+            [% remDiffs--; %]
+        [% } %]
+    ],
+	    [% remDiffs = modelSnapshot.diffModified.size(); %]
+	diffModified: [
+	    [% for (diff in modelSnapshot.diffModified) { %]
+        "[%= diff %]"[% if (remDiffs > 1) { %], [% } %]
+
+            [% remDiffs--; %]
+        [% } %]
+    ]
+})
+,([%= modelFile.name %])-[:lifetime]->([%= modelSnapshot.name %])
+    [% } %]
+,([%= modelFile.name %])-[:current]->([%= modelFile.current.name %])
+[% } %]
+[**]
+[**]
+[**]
+[% for (branch in self.branches) { %]
+[**]
+[* Branch node *]
+[**]
+,([%= branch.name %]:[%= branch.type().name %] {
+    name: "[%= branch.name %]",
+    branchName: "[%= branch.branchName %]",
+    active: "[%= branch.active %]"
+})
+[**]
+[* Repo -> Branch *]
+[**]
+,([%= self.name %])-[:branches]->([%= branch.name %])
+    [% for (commit in branch.commits) { %]
+,([%= commit.name %]:Commit:[%= commit.type().name %] {
+    name: "[%= commit.name %]",
+    hash: "[%= commit.hash %]",
+    author: "[%= commit.author %]",
+    message: "[%= commit.message %]",
+    timestamp: "[%= commit.timestamp %]"
+})
+,([%= branch.name %])-[:commits]->([%= commit.name %])
+    [% } %]
+,([%= branch.name %])-[:parent]->([%= branch.parent.name %])
+,([%= branch.name %])-[:head]->([%= branch.head.name %])
+[% } %]
+[% for (mergeCommit in M!MergeCommit.allInstances()) { %]
+,([%= mergeCommit.name %])-[:from]->([%= mergeCommit.from.name %])
+,([%= mergeCommit.name %])-[:to]->([%= mergeCommit.to.name %])
+[% } %]
+[% for (commit in M!Commit.allInstances()) { %]
+    [% if (commit.next != null) { %]
+,([%= commit.name %])-[:next]->([%= commit.next.name %])
+    [% } %]
+    [% for (modelSnapshot in commit.modifiedModels) { %]
+,([%= commit.name %])-[:modifiedModels]->([%= modelSnapshot.name %])
+    [% } %]
+[% } %]
+[% for (modelSnapshot in M!ModelSnapshot.allInstances) { %]
+    [% if (modelSnapshot.next != null) { %]
+,([%= modelSnapshot.name %])-[:next]->([%= modelSnapshot.next.name %])
+    [% } %]
+[% } %]
+;

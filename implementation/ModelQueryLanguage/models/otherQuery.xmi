@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mq:QueryFile xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mq="geodes.sms.modelquerylanguage">
+  <queries operator="WHERE" subject="model">
+    <containerParameters>owner = &quot;Philippe&quot;</containerParameters>
+  </queries>
+  <queries operator="WHEN" subject="changed">
+    <diffParameters>&quot;MyTable.x = 3&quot;</diffParameters>
+  </queries>
+</mq:QueryFile>

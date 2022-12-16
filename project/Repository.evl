@@ -1,9 +1,0 @@
-# -*- mode: python -*-
-
-context ModelModif {
-    constraint commitModelCoherence {
-        check: self.^model.lifetime->includes(self.modelSnapshot)
-        message: "Model " + self.^model.name
-            + " does not contain this snapshot"
-    }
-}

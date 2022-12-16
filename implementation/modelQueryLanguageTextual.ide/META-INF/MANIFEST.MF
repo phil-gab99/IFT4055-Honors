@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: modelQueryLanguageTextual.ide
+Bundle-ManifestVersion: 2
+Bundle-Name: modelQueryLanguageTextual.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: modelQueryLanguageTextual.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: modelQueryLanguageTextual,
+ ModelQueryLanguage,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: geodes.sms.modelquerylanguage.ide.contentassist.antlr.internal,
+ geodes.sms.modelquerylanguage.ide.contentassist.antlr

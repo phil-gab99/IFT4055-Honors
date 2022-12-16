@@ -1,0 +1,55 @@
+@namespace(uri="geodes.sms.repository", prefix="rp")
+package Repository;
+
+class Repo {
+    !ordered id attr String name;
+    val Branch[1..*] branches;
+    val Model[*] models;
+}
+
+class Branch {
+    !ordered id attr String name;
+    attr String branchName;
+    attr Boolean active;
+    val Commit[1..*] commits;
+    ref Commit[1] parent;
+    ref Commit[1] head;
+}
+
+abstract class Commit {
+    !ordered id attr String name;
+    !ordered unique attr String hash;
+    attr String author;
+    attr String message;
+    attr String timestamp;
+    ref Commit[0..1] next;
+    ref ModelSnapshot[1..*] modifiedModels;
+}
+
+class GenericCommit extends Commit {
+
+}
+
+class MergeCommit extends Commit {
+    ref Commit[1] from;
+    ref Commit[1] to;
+}
+
+class Model {
+    !ordered id attr String name;
+    !ordered unique attr String modelId;
+    attr Boolean isDeleted;
+    attr String owner;
+    attr String creationDate;
+    ref ModelSnapshot[1] current;
+    val ModelSnapshot[1..*] lifetime;
+}
+
+class ModelSnapshot {
+    !ordered id attr String name;
+    attr String path;
+    attr String[*] diffModified;
+    attr String[*] diffCreated;
+    attr String[*] diffDeleted;
+    ref ModelSnapshot next;
+}

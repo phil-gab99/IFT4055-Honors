@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/Repository/src" modelPluginID="Repository"
+    modelName="Repository" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>Repository.ecore</foreignModel>
+  <genPackages prefix="Repository" disposableProviderFactory="true" ecorePackage="Repository.ecore#/">
+    <genClasses ecoreClass="Repository.ecore#//Repo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Repo/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Repository.ecore#//Repo/branches"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Repository.ecore#//Repo/models"/>
+    </genClasses>
+    <genClasses ecoreClass="Repository.ecore#//Branch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Branch/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Branch/branchName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Branch/active"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Repository.ecore#//Branch/commits"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//Branch/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//Branch/head"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Repository.ecore#//Commit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Commit/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Commit/hash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Commit/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Commit/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Commit/timestamp"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//Commit/next"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//Commit/modifiedModels"/>
+    </genClasses>
+    <genClasses ecoreClass="Repository.ecore#//GenericCommit"/>
+    <genClasses ecoreClass="Repository.ecore#//MergeCommit">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//MergeCommit/from"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//MergeCommit/to"/>
+    </genClasses>
+    <genClasses ecoreClass="Repository.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Model/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Model/modelId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Model/isDeleted"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Model/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//Model/creationDate"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//Model/current"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Repository.ecore#//Model/lifetime"/>
+    </genClasses>
+    <genClasses ecoreClass="Repository.ecore#//ModelSnapshot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//ModelSnapshot/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//ModelSnapshot/path"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//ModelSnapshot/diffModified"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//ModelSnapshot/diffCreated"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Repository.ecore#//ModelSnapshot/diffDeleted"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Repository.ecore#//ModelSnapshot/next"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

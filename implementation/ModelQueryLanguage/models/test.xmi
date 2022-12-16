@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mq:QueryFile xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mq="geodes.sms.modelquerylanguage">
+  <queries subject="head">
+    <containerParameters>branchName = &quot;main&quot;</containerParameters>
+    <containerParameters>active = &quot;true&quot;</containerParameters>
+  </queries>
+  <queries operator="WHERE" subject="parent">
+    <containerParameters>branchName = &quot;b1&quot;</containerParameters>
+  </queries>
+  <queries operator="WHEN" subject="created">
+    <containerParameters>timestamp &lt; &quot;2022-09-04&quot;</containerParameters>
+    <diffParameters>&quot;MyDomainSpecificObject.x = 19&quot;</diffParameters>
+  </queries>
+</mq:QueryFile>

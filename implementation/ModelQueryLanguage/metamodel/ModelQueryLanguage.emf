@@ -1,0 +1,20 @@
+@namespace(uri="geodes.sms.modelquerylanguage", prefix="mq")
+package ModelQueryLanguage;
+
+class QueryFile {
+	val ModelQuery[*] queries;
+}
+
+class ModelQuery {
+	attr Operator[1] operator;
+	attr String[1] subject;
+	attr String[*] containerParameters;
+	attr String[*] diffParameters;
+}
+
+enum Operator {
+	WHO = 0;
+	WHEN = 1;
+	WHAT = 2;
+	WHERE = 3;
+}

@@ -167,7 +167,7 @@
       créer un exemple de base de données dans Neo4J sur lequel je pourrais
       rouler les requêtes générées à partir de la transformation.
     </p>
-    <h3>Période 11/20 - 11-28</h3>
+    <h3>Période 11/20 - 11/28</h3>
     <p>
       Durant cette période, j'ai eu une autre rencontre avec M. Eugene Syriani
       pour discuter du progrès jusqu'à présent. Après notre rencontre, j'ai
@@ -192,7 +192,7 @@
       certaines révisions de mon implémentation, j'ai ensuite conçu une première
       version de ma présentation orale.
     </p>
-    <h3>Période 11/28 - 12-11</h3>
+    <h3>Période 11/28 - 12/11</h3>
     <p>
       Durant cette période, j'ai amené les changements discuté dans la période
       précédente. J'ai également tenté d'améliorer la fonction d'autocomplétion
@@ -205,6 +205,58 @@
       alloué cette période. Pour le temps restant, je planifie terminer la
       préparation de ma présentation et l'écriture du rapport final.
     </p>
+    <h3>Période 12/11 - 12/18</h3>
+    <p>
+      Cette période étant la dernière, j'ai terminer ma préparation à la
+      présentation du projet que j'ai fait le mardi de cette semaine. J'ai
+      également terminer la rédaction du rapport. J'ai tenté une dernière fois
+      de me lancer à tenter d'avancer la tâche menant à faire référence à des
+      éléments du métamodèle dans le domaine de l'expert en revoyant le document
+      de référence et des articles en ligne mais sans succès. Je l'ai donc gardé
+      comme travail futur possible à la continuation de ce projet.
+    </p>
 
     <h2>E - Rapport final</h2>
+    Le rapport est accessible <a href="./rapport/report.pdf">ici</a>
+    <h3>Résumé français</h3>
+    <p>
+      Le problème principal est de fournir un système de contrôle de versions
+      spécifique au domaine (DSVCS). Plusieurs composantes constituent un DSVCS.
+      Ce projet consistait à offrir un langage de requêtes spécifique au domaine
+      permettant d'entreprendre des requêtes sur un projet de modélisation
+      versionnable. Une approche MDE a été adopté comme solution au problème.
+      Les unités versionnables d'un projet versionnable sont exprimés dans le
+      métamodèle du projet versionnable. Une transformation modèle-à-texte peut
+      prendre comme entrée un modèle d'un projet versionnable et produire une
+      requête Cypher pour générer une requête Cypher pour créer la base de
+      données. Le langage MQL a sa syntaxe absstraite décrite dans le métamodèle
+      de MQL. La syntaxe concrète est définie à l'aide de Xtext et un parseur
+      Xtend construit le modèle MQL correspondant conformant au métamodèle. Une
+      transformation modèle-à-texte génère la requête Cypher pour interroger le
+      système. Ce processus est automatisé à l'aide d'un Ant Workflow. Il est
+      possible de modifier les valeurs de certaines propriétés avant de rouler
+      le workflow. L'exécution du workflow roule la requête obtenue de
+      l'expression MQL après avoir initialisé la base de données pour ensuite
+      afficher les résultats obtenus.
+    </p>
+    <h3>Résumé anglais</h3>
+    <p>
+      The main problem is to provide a domain-specific version control system
+      (DSVCS). Many components constitute a DSVCS. This project consists of
+      providing a domain-specific query language allowing one to undertake
+      queries on a versionnable modeling project. An MDE approach was adopted as
+      a solution to that problem. The versionnable units of a repository were
+      determined through the metamodel of a repository. A model-to-text
+      transformation can take a repository model as input in order to generate
+      the Cypher query for initializing the database. The MQL language's
+      abstract syntax was defined through the MQL metamodel. Its concrete syntax
+      was defined using Xtext, and an Xtend parser builds the corresponding MQL
+      model which conforms to the MQL metamodel. A model-to-text transformation
+      then generates the Cypher query for querying the system. This process was
+      automated using an Ant Workflow. One can modify the value of some
+      properties before executing the workflow. The workflow execution runs the
+      query obtained from the MQL expression after initializing the database to
+      then display the query results.
+    </p>
+  </body>
 </html>

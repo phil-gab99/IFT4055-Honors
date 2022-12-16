@@ -12,4 +12,9 @@ Eugene Syriani and Manuel Wimmer.
 \newblock A roadmap towards domain-specific version control systems.
 \newblock {\em White Paper}, September 2018.
 
+\bibitem{nmf}
+Nikitchyn Vitalii.
+\newblock A framework for domain-specific modeling on graph databases.
+\newblock {\em Universite de Montreal}, December 2021.
+
 \end{thebibliography}

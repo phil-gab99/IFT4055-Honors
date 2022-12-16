@@ -1,0 +1,5 @@
+rule MQL2CQL 
+transform self: M!QueryFile {
+	template : "cypher.egl"
+	target : "../models/" + "query.cypher"
+}

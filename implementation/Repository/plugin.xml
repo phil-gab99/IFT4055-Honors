@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Repository -->
+      <package
+            uri="geodes.sms.repository"
+            class="Repository.RepositoryPackage"
+            genModel="metamodel/Repository.genmodel"/>
+   </extension>
+
+</plugin>

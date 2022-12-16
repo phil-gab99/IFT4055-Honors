@@ -1,0 +1,5 @@
+rule repo2Graph 
+transform self: M!Repo {
+	template : "neo4j.egl"
+	target : "../models/" + "Repo.cypher"
+}
